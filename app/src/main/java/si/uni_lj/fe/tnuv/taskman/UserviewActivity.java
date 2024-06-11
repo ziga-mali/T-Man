@@ -32,7 +32,6 @@ public class UserviewActivity extends AppCompatActivity {
     String username;
     TextView UsernameField;
     SharedPreferences prefs;
-    String Android = "1";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
