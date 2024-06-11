@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:padding="8dip"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/username"
+        android:textSize="20pt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:layout_marginBottom="20dp"
+        />
+
+    <TextView
+        android:id="@+id/task_name"
+        android:textSize="15pt"
+        android:gravity="center_horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Nova naloga"
+        />
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:orientation = "vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:orientation = "vertical">
+
+            <TextView
+                android:id="@+id/enter_task_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:layout_margin="2dp"
+                android:layout_marginBottom="2dp"
+                android:layout_marginEnd="2dp"
+                android:layout_marginStart="2dp"
+                android:layout_marginTop="2dp"
+                android:text="Vpiši ime naloge:"
+                android:textSize="12pt" />
+
+            <EditText
+                android:id="@+id/task_name_input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/enter_task_name"
+                android:gravity="center_horizontal"
+                android:layout_marginBottom="2dp"
+                android:layout_marginEnd="2dp"
+                android:layout_marginStart="2dp"
+                android:layout_marginTop="2dp"
+                android:hint="Ime naloge"
+                android:inputType="text"/>
+
+            <TextView
+                android:id="@+id/task_description"
+                android:textSize="12pt"
+                android:gravity="center_horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/task_name_input"
+                android:text="Opis naloge:"
+                />
+
+            <EditText
+                android:id="@+id/task_description_input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/task_description"
+                android:gravity="center_horizontal"
+                android:layout_marginBottom="2dp"
+                android:layout_marginEnd="2dp"
+                android:layout_marginStart="2dp"
+                android:layout_marginTop="2dp"
+                android:hint="Opis naloge"/>
+
+
+            <TextView
+                android:id="@+id/task_finish_time"
+                android:textSize="12pt"
+                android:gravity="center_horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/task_description_input"
+                android:text="Končaj do:"
+                android:inputType="text"
+                />
+            <TextView
+                android:id="@+id/task_finish_time_display"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/task_finish_time"
+                android:gravity="center_horizontal"
+                android:layout_marginBottom="2dp"
+                android:layout_marginEnd="2dp"
+                android:layout_marginStart="2dp"
+                android:layout_marginTop="2dp"
+                android:text=""/>
+            <Button
+                android:id="@+id/task_finish_time_input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/task_finish_time_display"
+                android:gravity="center_horizontal"
+                android:layout_marginBottom="2dp"
+                android:layout_marginEnd="2dp"
+                android:layout_marginStart="2dp"
+                android:layout_marginTop="2dp"
+                android:text="Določi datum in uro"
+                />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:paddingBottom="10pt">
+
+            <Button
+                android:id="@+id/btn_save_task"
+                android:layout_width="0dp"
+                android:layout_height="40pt"
+                android:layout_margin="2pt"
+                android:layout_weight="0.33"
+                android:onClick="startAddTask"
+                android:text="Shrani"
+                />
+
+            <Button
+                android:id="@+id/btn_clear_task"
+                android:layout_width="0dp"
+                android:layout_height="40pt"
+                android:layout_margin="2pt"
+                android:layout_weight="0.33"
+                android:onClick="clearTask"
+                android:text="Počisti"
+                />
+
+        </LinearLayout>
+    </RelativeLayout>
+</LinearLayout>

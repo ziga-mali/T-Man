@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:padding="8dip"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/Username"
+        android:textSize="20pt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:layout_marginBottom="20dp"
+        />
+
+    <TextView
+        android:id="@+id/project_name"
+        android:textSize="15pt"
+        android:gravity="center_horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Nov projekt"
+        />
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:orientation = "vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:orientation = "vertical">
+
+            <TextView
+                android:id="@+id/enter_project_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:layout_margin="2dp"
+                android:layout_marginBottom="2dp"
+                android:layout_marginEnd="2dp"
+                android:layout_marginStart="2dp"
+                android:layout_marginTop="2dp"
+                android:text="Vpiši ime projekta:"
+                android:textSize="12pt" />
+
+            <EditText
+                android:id="@+id/project_name_input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/enter_project_name"
+                android:gravity="center_horizontal"
+                android:layout_marginBottom="2dp"
+                android:layout_marginEnd="2dp"
+                android:layout_marginStart="2dp"
+                android:layout_marginTop="2dp"
+                android:hint="Ime projekta"
+                android:inputType="text"/>
+
+            <TextView
+                android:id="@+id/project_description"
+                android:textSize="12pt"
+                android:gravity="center_horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/project_name_input"
+                android:text="Opis projekta:"
+                android:inputType="text"
+                />
+
+            <EditText
+                android:id="@+id/project_description_input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/project_description"
+                android:gravity="center_horizontal"
+                android:layout_marginBottom="2dp"
+                android:layout_marginEnd="2dp"
+                android:layout_marginStart="2dp"
+                android:layout_marginTop="2dp"
+                android:hint="Opis projekta" />
+
+<!--            <TextView-->
+<!--                android:id="@+id/project_access"-->
+<!--                android:textSize="12pt"-->
+<!--                android:gravity="center_horizontal"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_below="@id/project_description_input"-->
+<!--                android:text="Osebe z dostopom:"-->
+<!--                />-->
+
+<!--            <EditText-->
+<!--                android:id="@+id/project_access_input"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_below="@id/project_access"-->
+<!--                android:gravity="center_horizontal"-->
+<!--                android:layout_marginBottom="2dp"-->
+<!--                android:layout_marginEnd="2dp"-->
+<!--                android:layout_marginStart="2dp"-->
+<!--                android:layout_marginTop="2dp"-->
+<!--                android:inputType="text"-->
+<!--                android:hint="Osebe z dostopom" />-->
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:paddingBottom="10pt">
+
+            <Button
+                android:id="@+id/btn_save_project"
+                android:layout_width="0dp"
+                android:layout_height="40pt"
+                android:layout_margin="2pt"
+                android:layout_weight="0.33"
+                android:onClick="startAddProject"
+                android:text="Shrani"
+                />
+
+            <Button
+                android:id="@+id/btn_clear_project"
+                android:layout_width="0dp"
+                android:layout_height="40pt"
+                android:layout_margin="2pt"
+                android:layout_weight="0.33"
+                android:onClick="clearProject"
+                android:text="Počisti"
+                />
+
+        </LinearLayout>
+    </RelativeLayout>
+</LinearLayout>

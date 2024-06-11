@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:padding="8dip"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/project_name"
+        android:textSize="20pt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:layout_marginBottom="20dp"
+        android:text="Ime projekta"
+        />
+
+    <TextView
+        android:id="@+id/task_name"
+        android:textSize="15pt"
+        android:gravity="center_horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Ime naloge"
+        />
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:orientation = "vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:orientation = "vertical">
+
+            <TextView
+                android:id="@+id/task_description_heading"
+                android:textSize="12pt"
+                android:gravity="center_horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Opis naloge:"
+                />
+
+            <TextView
+                android:id="@+id/task_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/task_description_heading"
+                android:gravity="center_horizontal"
+                android:layout_marginBottom="2dp"
+                android:layout_marginEnd="2dp"
+                android:layout_marginStart="2dp"
+                android:layout_marginTop="2dp"
+                android:text="" />
+
+            <TextView
+                android:id="@+id/task_finish_time_heading"
+                android:textSize="12pt"
+                android:gravity="center_horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/task_description"
+                android:text="Končaj do:"
+                />
+
+            <TextView
+                android:id="@+id/task_finish_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/task_finish_time_heading"
+                android:gravity="center_horizontal"
+                android:layout_marginBottom="2dp"
+                android:layout_marginEnd="2dp"
+                android:layout_marginStart="2dp"
+                android:layout_marginTop="2dp"
+                android:text="" />
+        </RelativeLayout>
+
+
+        <Button
+            android:id="@+id/btn_add_project"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/round_button"
+            android:gravity="center"
+            android:layout_above="@id/btn_remove_task"
+            android:onClick="finishTask"
+            android:drawableTop="@drawable/ic_finish"
+            android:drawablePadding="0dp"
+            tools:ignore="UsingOnClickInXml" />
+
+        <Button
+            android:id="@+id/btn_remove_task"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/round_button"
+            android:gravity="center"
+            android:onClick="deleteTask"
+            android:drawableTop="@drawable/ic_trash_bin"
+            android:drawablePadding="0dp"
+            tools:ignore="UsingOnClickInXml" />
+
+    </RelativeLayout>
+</LinearLayout>

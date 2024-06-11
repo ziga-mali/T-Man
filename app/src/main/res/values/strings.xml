@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">TaskMan</string>
+    <string name="URL_base_storitve">http://10.0.2.2/TMan/API/</string>
+    <string name="loginAPI">login/</string>
+    <string name="napaka_omrezje">Napaka pri uporabi omrežja</string>
+    <string name="uspesna_prijava">Uspešno ste se prijavili</string>
+    <string name="rest_nepricakovan_odgovor">Nepričakovan odgovor strežnika</string>
+    <string name="napaka_storitev">Napaka pri komunikaciji s strežnikom</string>
+    <string name="registerAPI">users/</string>
+    <string name="userviewAPI">userview/</string>
+    <string name="projectsAPI">projects/</string>
+    <string name="tasksAPI">/tasks/</string>
+
+</resources>

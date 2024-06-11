@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:padding="8dip">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/username"
+            android:textSize="20pt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:layout_marginBottom="20dp"
+            android:text="Username"
+            />
+
+        <TextView
+            android:id="@+id/project_name"
+            android:textSize="15pt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:layout_marginBottom="20dp"
+            android:text="ProjectName"
+            />
+
+
+
+        <TextView
+            android:id="@+id/project_description"
+            android:textSize="10pt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:layout_marginBottom="20dp"
+            android:scrollbarSize="6dp"
+            android:text="ProjectDescription"
+            />
+
+
+
+        <ListView
+            android:id="@+id/task_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/project_description"
+            android:layout_marginTop="8dp"
+            android:divider="@null"
+            android:dividerHeight="0dp"
+            android:choiceMode="multipleChoice"
+            android:listSelector="@android:color/transparent"
+            />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <Button
+            android:id="@+id/btn_add_task"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/btn_delete_project"
+            android:layout_alignParentStart="true"
+            android:layout_marginEnd="10pt"
+            android:layout_marginStart="10pt"
+            android:layout_marginTop="10pt"
+            android:gravity="center_horizontal"
+            android:textSize="10pt"
+            android:onClick="startTaskNewActivity"
+            android:text="Dodaj nalogo"
+            tools:ignore="UsingOnClickInXml" />
+
+        <Button
+            android:id="@+id/btn_delete_project"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="10pt"
+            android:layout_marginStart="10pt"
+            android:layout_marginEnd="10pt"
+            android:layout_marginBottom="10pt"
+            android:gravity="center_horizontal"
+            android:textSize="10pt"
+            android:onClick="removeProjectActivity"
+            android:text="Izbriši projekt"
+            />
+
+    </RelativeLayout>
+
+</RelativeLayout>
