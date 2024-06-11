@@ -3,18 +3,9 @@ package si.uni_lj.fe.tnuv.taskman;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.SubMenu;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.CheckBox;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ListView;
@@ -22,16 +13,11 @@ import android.widget.SimpleAdapter;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
-import android.util.Log;
 
 public class UserviewActivity extends AppCompatActivity {
 
@@ -46,6 +32,7 @@ public class UserviewActivity extends AppCompatActivity {
     String username;
     TextView UsernameField;
     SharedPreferences prefs;
+    String Android = "1";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -55,11 +42,7 @@ public class UserviewActivity extends AppCompatActivity {
         userProgram = new ArrayList<>();
 
         lv = findViewById(R.id.program_list);
-
-        Intent getUsername = getIntent();
-        username = getUsername.getStringExtra("username");
         UsernameField = findViewById(R.id.username);
-        UsernameField.setText(username);
 
         prefs = UserviewActivity.this.getSharedPreferences("TMan", Context.MODE_PRIVATE);
         userID = prefs.getString("userID", null);
@@ -75,6 +58,8 @@ public class UserviewActivity extends AppCompatActivity {
             throw new RuntimeException(e);
         }
 
+        Log.d("RequestInfo: ",requestInfo.toString());
+
         lv.setOnItemClickListener((adapterView, view, i, l) ->{
             try {
                 JSONObject project = projectsArray.getJSONObject(i);
@@ -87,7 +72,7 @@ public class UserviewActivity extends AppCompatActivity {
                 intent.putExtra("projectIme", projectIme);
                 intent.putExtra("projectOpis", projectOpis);
                 intent.putExtra("startingActivity", "UserviewActivity");
-                intent.putExtra("username", username);
+                //intent.putExtra("username", username);
                 startActivity(intent);
 
 
@@ -117,6 +102,19 @@ public class UserviewActivity extends AppCompatActivity {
     @Override
     public void onStart() {
         super.onStart();
+        GetUserNick getUserNick = new GetUserNick(this);
+        getUserNick.getUserNick(userID, requestInfo, new GetUserNick.GetUserNickCallback() {
+            @Override
+            public void onResponse(String userInfo) {
+                Log.d("UserInfo", userInfo);
+                username = userInfo;
+                Log.d("L121 ","userNick: " + username);
+                UsernameField.setText(username);
+            }
+            @Override
+            public void onError(String error) {
+                Log.e("UserInfoError", "Error: " + error);}
+        });
 
         useAPI apiUserview = new useAPI("GET", URL, requestInfo, true);
 
@@ -164,13 +162,6 @@ public class UserviewActivity extends AppCompatActivity {
 
         Intent intent = new Intent(UserviewActivity.this, LoginActivity.class);
         startActivity(intent);
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        username = prefs.getString("username", null);
-        UsernameField.setText(username);
     }
 }
 

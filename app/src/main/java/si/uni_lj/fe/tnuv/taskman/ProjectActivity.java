@@ -36,6 +36,8 @@ public class ProjectActivity extends AppCompatActivity {
     String URL;
     String projectID;
     String username;
+    String projectIme;
+    TextView UsernameField;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -46,14 +48,11 @@ public class ProjectActivity extends AppCompatActivity {
         lv = findViewById(R.id.task_list);
         Intent startingActivity = getIntent();
         String startActivity = startingActivity.getStringExtra("startingActivity");
-        username = startingActivity.getStringExtra("username");
-        String projectIme = startingActivity.getStringExtra("projectIme");
+        //username = startingActivity.getStringExtra("username");
+        projectIme = startingActivity.getStringExtra("projectIme");
         String projectOpis = startingActivity.getStringExtra("projectOpis");
 
-        TextView UsernameField = findViewById(R.id.username);
-        UsernameField.setText(username);
-        TextView ProjectImeField = findViewById(R.id.project_name);
-        ProjectImeField.setText(projectIme);
+        UsernameField = findViewById(R.id.username);
         TextView ProjectOpisField = findViewById(R.id.project_description);
         ProjectOpisField.setText(projectOpis);
 
@@ -61,8 +60,6 @@ public class ProjectActivity extends AppCompatActivity {
 
             projectID = startingActivity.getStringExtra("projectID");
             URL = getString(R.string.URL_base_storitve) + getString(R.string.projectsAPI) + projectID + getString(R.string.tasksAPI);
-            Log.d("ProjectAct L76", URL);
-            Log.d("ProjectAct L77", projectID);
 
         } else if (Objects.equals(startActivity, "ProjectNewActivity")) {
 
@@ -72,17 +69,17 @@ public class ProjectActivity extends AppCompatActivity {
             int startIndex = URL.indexOf(prefix) + prefix.length();
             int endIndex = URL.indexOf(suffix);
             projectID = URL.substring(startIndex, endIndex);
-            Log.d("ProjectAct L87", URL);
-            Log.d("ProjectAct L88", projectID);
+            Log.d("Project L70", URL);
+            Log.d("Project L71", projectID);
 
         } else {
-            Log.d("ProjectAct L91", "Napaka pri URL");
+            Log.d("Project L74", "Napaka pri URL");
         }
 
         SharedPreferences prefs = ProjectActivity.this.getSharedPreferences("TMan", Context.MODE_PRIVATE);
         userID = prefs.getString("userID", null);
         token = prefs.getString("token", null);
-        Log.d("ProjectAct L97", URL);
+        Log.d("Project L97", URL);
         tasksArray = new JSONArray();
         requestInfo = new JSONObject();
         try {
@@ -132,18 +129,17 @@ public class ProjectActivity extends AppCompatActivity {
     public void onStart() {
         super.onStart();
 
-        Log.d("ProjectAct L145", "Tukaj smo");
         useAPI apiProject = new useAPI("GET", URL, requestInfo, true);
         apiProject.uporabi(output -> {
-            Log.d("Project L147 API Resp", "Response code: " + output.getResponseCode());
+            Log.d("Project L150 API Resp", "Response code: " + output.getResponseCode());
             int responseCode = Integer.parseInt(output.getResponseCode());
             if(responseCode == 200){
                 tasksArray = output.getJsonArray();
                 ProjectActivity.this.runOnUiThread(() -> {
-                    Log.d("ProjAct L143", "Tukaj smo");
+                    Log.d("Project L155", "Tukaj smo");
                     populateListView();
                 });
-                Log.d("ProjAct L146 Vseb spor", "Sporocilo: " + tasksArray);
+                Log.d("Project L158 Vseb spor", "Sporocilo: " + tasksArray);
             }else{
                 ProjectActivity.this.runOnUiThread(() -> {
                     Toast.makeText(ProjectActivity.this, "Response code: " + output.getResponseCode(), Toast.LENGTH_LONG).show();
@@ -172,7 +168,7 @@ public class ProjectActivity extends AppCompatActivity {
         URL = getString(R.string.URL_base_storitve) + getString(R.string.projectsAPI) + projectID;
         useAPI projectDelete = new useAPI("DELETE", URL, requestInfo,true);
         projectDelete.uporabi(output -> {
-            Log.d("Project L192 API Resp", "Response code: " + output.getResponseCode());
+            Log.d("Project L187 API Resp", "Response code: " + output.getResponseCode());
             int responseCode = Integer.parseInt(output.getResponseCode());
             if(responseCode == 204){
                 ProjectActivity.this.runOnUiThread(() -> {
@@ -188,5 +184,4 @@ public class ProjectActivity extends AppCompatActivity {
                 });
             }
         });
-    }
-}
+    }}

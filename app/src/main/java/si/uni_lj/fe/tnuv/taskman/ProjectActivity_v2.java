@@ -9,13 +9,10 @@ import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -27,7 +24,6 @@ public class ProjectActivity_v2 extends AppCompatActivity {
     private ListView lv;
     private List<Map<String, String>> programTasks;
     private JSONArray tasksArray;
-
     String userID = null;
     String token = null;
     JSONObject requestInfo;
@@ -37,16 +33,11 @@ public class ProjectActivity_v2 extends AppCompatActivity {
     String username;
     String projectIme;
     String projectOpis;
+    TextView UsernameField;
+    TextView ProjectImeField;
+    TextView ProjectOpisField;
 
 
-    @Override
-    public void onBackPressed() {
-        Log.d("Proj V2 L44", "Tukaj smo");
-        Intent intent = new Intent();
-        intent.putExtra("username", username);
-        Log.d("Proj V2 L47", username);
-        super.onBackPressed(); // This will call finish() to close the activity
-    }
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,15 +47,14 @@ public class ProjectActivity_v2 extends AppCompatActivity {
         lv = findViewById(R.id.task_list);
         Intent startingActivity = getIntent();
         String startActivity = startingActivity.getStringExtra("startingActivity");
-        username = startingActivity.getStringExtra("username");
+        //username = startingActivity.getStringExtra("username");
         projectIme = startingActivity.getStringExtra("projectIme");
         projectOpis = startingActivity.getStringExtra("projectOpis");
 
-        TextView UsernameField = findViewById(R.id.username);
-        UsernameField.setText(username);
-        TextView ProjectImeField = findViewById(R.id.project_name);
+        UsernameField = findViewById(R.id.username);
+        ProjectImeField = findViewById(R.id.project_name);
         ProjectImeField.setText(projectIme);
-        TextView ProjectOpisField = findViewById(R.id.project_description);
+        ProjectOpisField = findViewById(R.id.project_description);
         ProjectOpisField.setText(projectOpis);
 
         if (Objects.equals(startActivity, "UserviewActivity") || Objects.equals(startActivity, "TaskActivity") || Objects.equals(startActivity, "TaskNewActivity")) {
@@ -143,6 +133,23 @@ public class ProjectActivity_v2 extends AppCompatActivity {
     public void onStart() {
         super.onStart();
 
+        Log.d("Project L130", "Tukaj smo");
+
+        GetUserNick getUserNick = new GetUserNick(this);
+        getUserNick.getUserNick(userID, requestInfo, new GetUserNick.GetUserNickCallback() {
+            @Override
+            public void onResponse(String userInfo) {
+                Log.d("UserInfo", userInfo);
+                username = userInfo;
+                Log.d("Project L140 ","userNick: " + username);
+                UsernameField.setText(username);
+            }
+            @Override
+            public void onError(String error) {
+                Log.e("UserInfoError", "Error: " + error);}
+        });
+
+
         Log.d("ProjectAct L145", "Tukaj smo");
         useAPI apiProject = new useAPI("GET", URL, requestInfo, true);
         apiProject.uporabi(output -> {
@@ -181,7 +188,6 @@ public class ProjectActivity_v2 extends AppCompatActivity {
         intent.putExtra("username", username);
         intent.putExtra("projectIme", projectIme);
         intent.putExtra("projectOpis", projectOpis);
-        intent.putExtra("projectID", projectID);
         startActivity(intent);
     }
 
@@ -193,7 +199,7 @@ public class ProjectActivity_v2 extends AppCompatActivity {
             int responseCode = Integer.parseInt(output.getResponseCode());
             if (responseCode == 204) {
                 ProjectActivity_v2.this.runOnUiThread(() -> {
-                    Toast.makeText(ProjectActivity_v2.this, "Projekt uspešno izbrisan", Toast.LENGTH_LONG).show();
+                    Toast.makeText(ProjectActivity_v2.this, "Projekt uspešno izbrisan", Toast.LENGTH_SHORT).show();
                 });
 
                 Intent intent = new Intent(ProjectActivity_v2.this, UserviewActivity.class);
@@ -201,7 +207,7 @@ public class ProjectActivity_v2 extends AppCompatActivity {
                 startActivity(intent);
             } else {
                 ProjectActivity_v2.this.runOnUiThread(() -> {
-                    Toast.makeText(ProjectActivity_v2.this, "Response code: " + output.getResponseCode(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(ProjectActivity_v2.this, "Ups, nekaj je šlo narobe!" + output.getResponseCode(), Toast.LENGTH_SHORT).show();
                 });
             }
         });

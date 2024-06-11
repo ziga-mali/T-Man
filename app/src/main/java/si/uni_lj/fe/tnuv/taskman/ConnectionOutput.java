@@ -2,12 +2,12 @@ package si.uni_lj.fe.tnuv.taskman;
 
 import org.json.JSONArray;
 
-public class connectionOutput {
+public class ConnectionOutput {
     private String responseCode;
     private JSONArray jsonArray;
     private String responseString;
 
-    public connectionOutput(String string, JSONArray jsonArray, String responseString){
+    public ConnectionOutput(String string, JSONArray jsonArray, String responseString){
         this.responseCode = string;
         this.jsonArray = jsonArray;
         this.responseString = responseString;

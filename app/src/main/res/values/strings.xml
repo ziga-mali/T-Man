@@ -10,5 +10,6 @@
     <string name="userviewAPI">userview/</string>
     <string name="projectsAPI">projects/</string>
     <string name="tasksAPI">/tasks/</string>
+    <string name="usersAPI">users/</string>
 
 </resources>

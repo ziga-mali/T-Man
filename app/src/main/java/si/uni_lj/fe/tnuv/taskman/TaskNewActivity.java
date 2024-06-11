@@ -6,41 +6,21 @@ import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.os.Handler;
 import android.text.format.DateFormat;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.SubMenu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.ListView;
-import android.widget.SimpleAdapter;
-import android.widget.Toast;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
 
 public class TaskNewActivity extends AppCompatActivity {
 
-    private String URL;
     private Calendar calendar;
     private String dateTime;
     private TextView dateTimeDisplay;
@@ -122,14 +102,14 @@ public class TaskNewActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        URL = this.getString(R.string.URL_base_storitve) + this.getString(R.string.projectsAPI) + projectID + this.getString(R.string.tasksAPI);
+        String URL = this.getString(R.string.URL_base_storitve) + this.getString(R.string.projectsAPI) + projectID + this.getString(R.string.tasksAPI);
 
         useAPI api = new useAPI("POST", URL, requestInfo, true);
 
         api.uporabi(output -> {
             String responseCode = output.getResponseCode();
             String taskURL = output.getResponseString();
-            Log.d("ProjectNewActivity L91", responseCode);
+            Log.d("TaskNewActivity L132", responseCode);
 
             if (responseCode.equals("201")) {
 

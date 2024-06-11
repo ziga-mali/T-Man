@@ -19,7 +19,8 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Objects;
-
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import android.util.Log;
 
 class useAPI {
@@ -29,7 +30,7 @@ class useAPI {
     private final Boolean IdenAndAuth;
 
     interface APIResponseCallback {
-        void onResponse(connectionOutput output);
+        void onResponse(ConnectionOutput output);
     }
 
     public useAPI(String method, String URL, JSONObject inputData, Boolean IdenAndAuth){
@@ -39,12 +40,12 @@ class useAPI {
         this.IdenAndAuth = IdenAndAuth;
     }
 
-    public connectionOutput uporabi (APIResponseCallback callback) {
+    public ConnectionOutput uporabi (APIResponseCallback callback) {
 
         JSONArray placeholderJsonArray = new JSONArray();
         String placeholderString = "";
         String placeholderResponseString = "";
-        connectionOutput connectionOutput = new connectionOutput(placeholderString, placeholderJsonArray, placeholderResponseString);
+        ConnectionOutput connectionOutput = new ConnectionOutput(placeholderString, placeholderJsonArray, placeholderResponseString);
 
         new Thread(() -> {
             try {
@@ -95,9 +96,13 @@ class useAPI {
                             Log.d("UseAPI L97 JSN response", String.valueOf(jsonResponse));
                         } catch (JSONException e) {
                             connectionOutput.setJsonArray(null); // Set JSON array to null
-                            String cleanedResponse = response.toString().replace("\\/","/").replace("\"","");
-                            connectionOutput.setResponseString(cleanedResponse);
-                            Log.d("UseAPI L101 Str resp", cleanedResponse);
+                            Log.d("UseAPI L99 Str resp", response.toString());
+                            connectionOutput.setResponseString(response.toString());
+                            if (response.toString().startsWith("\"http")){
+                                String cleanedResponse = response.toString().replace("\\/","/").replace("\"","");
+                                connectionOutput.setResponseString(cleanedResponse);
+                                Log.d("UseAPI L103 Str URL res", cleanedResponse);
+                            }
                         }
                     }
                     if (callback != null) {

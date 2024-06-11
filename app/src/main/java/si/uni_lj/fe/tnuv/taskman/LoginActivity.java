@@ -36,7 +36,7 @@ public class LoginActivity extends AppCompatActivity {
     public void startUserviewActivity(View v) {
         String username = Username.getText().toString();
         String password = Password.getText().toString();
-        String passwordHash = hashCalculation.calculateMD5(password);
+        String passwordHash = HashCalculation.calculateMD5(password);
 
         if (username.isEmpty() || password.isEmpty()) {
             Toast.makeText(this, "Vnesite tako uporabniško ime kot geslo", Toast.LENGTH_SHORT).show();

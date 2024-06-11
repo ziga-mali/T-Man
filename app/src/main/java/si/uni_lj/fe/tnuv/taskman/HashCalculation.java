@@ -3,7 +3,7 @@ package si.uni_lj.fe.tnuv.taskman;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-public class hashCalculation {
+public class HashCalculation {
     public static String calculateMD5(String input) {
         try {
             // Create MD5 hashing instance
