@@ -11,9 +11,11 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 import android.util.Log;
 
+/** @noinspection ALL*/
 class useAPI {
     private final String method;
     private final String URL;
@@ -21,7 +23,7 @@ class useAPI {
     private final Boolean IdenAndAuth;
 
     interface APIResponseCallback {
-        void onResponse(ConnectionOutput output);
+        void onResponse(ConnectionOutput output) throws JSONException;
     }
 
     public useAPI(String method, String URL, JSONObject inputData, Boolean IdenAndAuth){
@@ -50,15 +52,13 @@ class useAPI {
                 if (IdenAndAuth) {
                     connection.setRequestProperty("Authorization", "Bearer " + inputData.getString("token"));
                     connection.setRequestProperty("Identification", "UserID " + inputData.getString("userID"));
-                    inputData.remove("Authorization");
-                    inputData.remove("Identification");
                 }
                 if (Objects.equals(method, "POST") || Objects.equals(method, "PUT")){
                     connection.setDoOutput(true);
                     OutputStream os = connection.getOutputStream();
-                    BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os, "UTF-8"));
+                    BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os, StandardCharsets.UTF_8));
                     writer.write(inputData.toString());
-                    Log.d("useAPI L72", inputData.toString());
+                    Log.d("useAPI L60", inputData.toString());
                     writer.flush();
                     writer.close();
                     os.close();
@@ -67,10 +67,10 @@ class useAPI {
 
                 int responseCode = connection.getResponseCode();
                 connectionOutput.setResponseCode(String.valueOf(responseCode));
-                Log.d("UseAPI L81", String.valueOf(responseCode));
+                Log.d("UseAPI L69", String.valueOf(responseCode));
                 if (responseCode >= 200 && responseCode < 300) {
                     int contentLength = connection.getContentLength();
-                    Log.d("UseAPI L84 CONTENT_LEN", String.valueOf(contentLength));
+                    Log.d("UseAPI L73 CONTENT_LEN", String.valueOf(contentLength));
                     if (contentLength > 0) {
                         BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
                         StringBuilder response = new StringBuilder();
@@ -101,13 +101,13 @@ class useAPI {
                     }
                 }else{
                     if (callback != null) {
-                        Log.d("UseAPI L111", "Response code: " + connectionOutput.getResponseCode());
+                        Log.d("UseAPI L104", "Response code: " + connectionOutput.getResponseCode());
                         callback.onResponse(connectionOutput);
                     }
                 }
             } catch (IOException | JSONException e) {
                 e.printStackTrace();
-                Log.d("UseAPI L119", "Response code: " + connectionOutput.getResponseCode());
+                Log.d("UseAPI L110", "Response code: " + connectionOutput.getResponseCode());
             }
         }).start();
         return connectionOutput;

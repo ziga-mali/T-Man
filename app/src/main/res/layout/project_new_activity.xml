@@ -3,8 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/white"
-    android:padding="8dip"
+    android:padding="8dp"
     android:orientation="vertical">
 
     <TextView
@@ -25,126 +26,134 @@
         android:text="Nov projekt"
         />
 
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:orientation = "vertical">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/input_field"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
 
-        <RelativeLayout
+        <TextView
+            android:id="@+id/enter_project_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:orientation = "vertical">
+            android:layout_marginBottom="2dp"
+            android:layout_marginEnd="2dp"
+            android:layout_marginStart="2dp"
+            android:layout_marginTop="2dp"
+            android:gravity="center_horizontal"
+            android:importantForAutofill="no"
+            android:text="Vpiši ime projekta:"
+            android:textSize="12pt"
+            tools:ignore="TextSizeCheck"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
 
-            <TextView
-                android:id="@+id/enter_project_name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="2dp"
-                android:layout_marginEnd="2dp"
-                android:layout_marginStart="2dp"
-                android:layout_marginTop="2dp"
-                android:gravity="center_horizontal"
-                android:importantForAutofill="no"
-                android:text="Vpiši ime projekta:"
-                android:textSize="12pt"
-                tools:ignore="TextSizeCheck" />
+        <EditText
+            android:id="@+id/project_name_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="2dp"
+            android:layout_marginEnd="2dp"
+            android:layout_marginStart="2dp"
+            android:layout_marginTop="2dp"
+            android:autofillHints="no"
+            android:gravity="center_horizontal"
+            android:hint="Ime projekta"
+            android:inputType="text"
+            android:minHeight="48dp"
+            tools:ignore="VisualLintTextFieldSize"
+            app:layout_constraintTop_toBottomOf="@id/enter_project_name"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
 
-            <EditText
-                android:id="@+id/project_name_input"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/enter_project_name"
-                android:layout_marginBottom="2dp"
-                android:layout_marginEnd="2dp"
-                android:layout_marginStart="2dp"
-                android:layout_marginTop="2dp"
-                android:gravity="center_horizontal"
-                android:hint="Ime projekta"
-                android:inputType="text"
-                android:minHeight="48dp"
-                tools:ignore="VisualLintTextFieldSize" />
+        <TextView
+            android:id="@+id/project_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:minHeight="48dp"
+            android:text="Opis projekta:"
+            android:textSize="12pt"
+            tools:ignore="TextSizeCheck,TextViewEdits"
+            app:layout_constraintTop_toBottomOf="@id/project_name_input"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
 
-            <TextView
-                android:id="@+id/project_description"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/project_name_input"
-                android:gravity="center_horizontal"
-                android:minHeight="48dp"
-                android:text="Opis projekta:"
-                android:textSize="12pt"
-                tools:ignore="TextSizeCheck,TextViewEdits" />
+        <EditText
+            android:id="@+id/project_description_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="2dp"
+            android:layout_marginEnd="2dp"
+            android:layout_marginStart="2dp"
+            android:layout_marginTop="2dp"
+            android:gravity="center_horizontal"
+            android:hint="Opis projekta"
+            android:importantForAutofill="no"
+            android:minHeight="48dp"
+            android:inputType="text"
+            tools:ignore="VisualLintTextFieldSize"
+            app:layout_constraintTop_toBottomOf="@id/project_description"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
 
-            <EditText
-                android:id="@+id/project_description_input"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/project_description"
-                android:layout_marginBottom="2dp"
-                android:layout_marginEnd="2dp"
-                android:layout_marginStart="2dp"
-                android:layout_marginTop="2dp"
-                android:gravity="center_horizontal"
-                android:hint="Opis projekta"
-                android:importantForAutofill="no"
-                android:minHeight="48dp"
-                android:inputType="text"
-                tools:ignore="VisualLintTextFieldSize" />
+        <TextView
+            android:id="@+id/project_access"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="Osebe z dostopom:"
+            android:textSize="12pt"
+            tools:ignore="TextSizeCheck"
+            app:layout_constraintTop_toBottomOf="@id/project_description_input"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
 
-            <TextView
-                android:id="@+id/project_access"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/project_description_input"
-                android:gravity="center_horizontal"
-                android:text="Osebe z dostopom:"
-                android:textSize="12pt"
-                tools:ignore="TextSizeCheck" />
-
-            <MultiAutoCompleteTextView
-                android:id="@+id/project_access_input"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/project_access"
-                android:layout_marginBottom="2dp"
-                android:layout_marginEnd="2dp"
-                android:layout_marginStart="2dp"
-                android:layout_marginTop="2dp"
-                android:gravity="center_horizontal"
-                android:hint="Osebe z dostopom"
-                android:importantForAutofill="no"
-                android:minHeight="48dp"
-                android:inputType="textMultiLine" />
-        </RelativeLayout>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/project_access_list"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginBottom="2dp"
+            android:layout_marginEnd="2dp"
+            android:layout_marginStart="2dp"
+            android:layout_marginTop="2dp"
+            android:gravity="center_horizontal"
+            app:layout_constraintTop_toBottomOf="@id/project_access"
+            app:layout_constraintBottom_toTopOf="@+id/button_container"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:id="@+id/button_container"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:paddingBottom="10pt">
+            android:orientation="horizontal"
+            android:paddingBottom="10pt"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
 
             <Button
                 android:id="@+id/btn_save_project"
                 android:layout_width="0dp"
                 android:layout_height="40pt"
                 android:layout_margin="2pt"
-                android:layout_weight="0.33"
+                android:layout_weight="0.5"
                 android:onClick="startAddProject"
                 android:text="Shrani"
-                tools:ignore="VisualLintButtonSize" />
+                tools:ignore="ButtonStyle,VisualLintButtonSize" />
 
             <Button
                 android:id="@+id/btn_clear_project"
                 android:layout_width="0dp"
                 android:layout_height="40pt"
                 android:layout_margin="2pt"
-                android:layout_weight="0.33"
+                android:layout_weight="0.5"
                 android:onClick="clearProject"
                 android:text="Počisti"
-                tools:ignore="VisualLintButtonSize" />
+                tools:ignore="ButtonStyle,VisualLintButtonSize" />
 
         </LinearLayout>
-    </RelativeLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </LinearLayout>
