@@ -4,34 +4,15 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.SubMenu;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.ListView;
-import android.widget.SimpleAdapter;
-import android.widget.Toast;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -90,6 +71,7 @@ public class TaskActivity extends AppCompatActivity {
         }
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onStart() {
         super.onStart();
@@ -130,9 +112,7 @@ public class TaskActivity extends AppCompatActivity {
                         koncaniCas = jsonObject.optString("kon_cas");
                         koncano = jsonObject.optString("koncano");
                     }else{
-                        TaskActivity.this.runOnUiThread(() -> {
-                            Toast.makeText(TaskActivity.this, "Prišlo je do napake", Toast.LENGTH_LONG).show();
-                        });
+                        TaskActivity.this.runOnUiThread(Toast.makeText(TaskActivity.this, "Prišlo je do napake", Toast.LENGTH_LONG)::show);
                     }
 
                 }
@@ -148,9 +128,7 @@ public class TaskActivity extends AppCompatActivity {
                 }
 
             } else {
-                TaskActivity.this.runOnUiThread(() -> {
-                    Toast.makeText(TaskActivity.this, "Prišlo je do napake", Toast.LENGTH_LONG).show();
-                });
+                TaskActivity.this.runOnUiThread(Toast.makeText(TaskActivity.this, "Prišlo je do napake", Toast.LENGTH_LONG)::show);
             }
         });
     }
@@ -176,9 +154,7 @@ public class TaskActivity extends AppCompatActivity {
         apiTaskFinish.uporabi(output -> {
             int responseCode = Integer.parseInt(output.getResponseCode());
             if (responseCode == 204){
-                TaskActivity.this.runOnUiThread(() -> {
-                    Toast.makeText(TaskActivity.this, "Naloga je zaključena", Toast.LENGTH_LONG).show();
-                });
+                TaskActivity.this.runOnUiThread(Toast.makeText(TaskActivity.this, "Naloga je zaključena", Toast.LENGTH_LONG)::show);
 
                 Intent intent = new Intent(TaskActivity.this, ProjectActivity_v2.class);
                 intent.putExtra("username", username);
@@ -199,9 +175,7 @@ public class TaskActivity extends AppCompatActivity {
         apiTaskDelete.uporabi(output -> {
             int responseCode = Integer.parseInt(output.getResponseCode());
             if (responseCode == 204){
-                TaskActivity.this.runOnUiThread(() -> {
-                    Toast.makeText(TaskActivity.this, "Naloga je izbrisana", Toast.LENGTH_LONG).show();
-                });
+                TaskActivity.this.runOnUiThread(Toast.makeText(TaskActivity.this, "Naloga je izbrisana", Toast.LENGTH_LONG)::show);
 
                 Intent intent = new Intent(TaskActivity.this, ProjectActivity_v2.class);
                 intent.putExtra("username", username);

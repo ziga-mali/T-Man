@@ -126,9 +126,7 @@ public class UserviewActivity extends AppCompatActivity {
                 });
                 Log.d("Userview L131 Vseb. spo", "Sporocilo: " + projectsArray);
             }else{
-                UserviewActivity.this.runOnUiThread(() -> {
-                    Toast.makeText(UserviewActivity.this, "Response code: " + output.getResponseCode(), Toast.LENGTH_LONG).show();
-                });
+                UserviewActivity.this.runOnUiThread(Toast.makeText(UserviewActivity.this, "Response code: " + output.getResponseCode(), Toast.LENGTH_LONG)::show);
             }
         });
 

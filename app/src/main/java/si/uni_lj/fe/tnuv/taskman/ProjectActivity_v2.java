@@ -17,7 +17,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 public class ProjectActivity_v2 extends AppCompatActivity {
 
@@ -47,15 +46,10 @@ public class ProjectActivity_v2 extends AppCompatActivity {
         projectID = prefs.getString("projectID", null);
         programTasks = new ArrayList<>();
         lv = findViewById(R.id.task_list);
-        Intent startingActivity = getIntent();
-        //projectIme = startingActivity.getStringExtra("projectIme");
-        //projectOpis = startingActivity.getStringExtra("projectOpis");
 
         UsernameField = findViewById(R.id.username);
         ProjectImeField = findViewById(R.id.project_name);
-        //ProjectImeField.setText(projectIme);
         ProjectOpisField = findViewById(R.id.project_description);
-        //ProjectOpisField.setText(projectOpis);
 
         URL = getString(R.string.URL_base_storitve) + getString(R.string.projectsAPI) + projectID + getString(R.string.tasksAPI);
         Log.d("ProjectAct L76", URL);
@@ -158,9 +152,7 @@ public class ProjectActivity_v2 extends AppCompatActivity {
                 });
                 Log.d("ProjtAct L155 Vseb spor", "Sporocilo: " + tasksArray);
             } else {
-                ProjectActivity_v2.this.runOnUiThread(() -> {
-                    Toast.makeText(ProjectActivity_v2.this, "Response code: " + output.getResponseCode(), Toast.LENGTH_LONG).show();
-                });
+                ProjectActivity_v2.this.runOnUiThread(Toast.makeText(ProjectActivity_v2.this, "Response code: " + output.getResponseCode(), Toast.LENGTH_LONG)::show);
             }
         });
 
@@ -186,7 +178,7 @@ public class ProjectActivity_v2 extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void removeProjectActivity(View v) throws JSONException {
+    public void removeProjectActivity(View v) {
         URL = getString(R.string.URL_base_storitve) + getString(R.string.projectsAPI) + projectID;
         try {
             requestInfo.put("koncan",1);
@@ -198,16 +190,12 @@ public class ProjectActivity_v2 extends AppCompatActivity {
             Log.d("Project L192 API Resp", "Response code: " + output.getResponseCode());
             int responseCode = Integer.parseInt(output.getResponseCode());
             if (responseCode == 204) {
-                ProjectActivity_v2.this.runOnUiThread(() -> {
-                    Toast.makeText(ProjectActivity_v2.this, "Projekt uspešno izbrisan", Toast.LENGTH_SHORT).show();
-                });
+                ProjectActivity_v2.this.runOnUiThread(Toast.makeText(ProjectActivity_v2.this, "Projekt uspešno izbrisan", Toast.LENGTH_SHORT)::show);
 
                 Intent intent = new Intent(ProjectActivity_v2.this, UserviewActivity.class);
                 startActivity(intent);
             } else {
-                ProjectActivity_v2.this.runOnUiThread(() -> {
-                    Toast.makeText(ProjectActivity_v2.this, "Ups, nekaj je šlo narobe!" + output.getResponseCode(), Toast.LENGTH_SHORT).show();
-                });
+                ProjectActivity_v2.this.runOnUiThread(Toast.makeText(ProjectActivity_v2.this, "Ups, nekaj je šlo narobe!" + output.getResponseCode(), Toast.LENGTH_SHORT)::show);
             }
         });
     }

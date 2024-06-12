@@ -30,7 +30,7 @@ public class TaskNewActivity extends AppCompatActivity {
     private String projectID;
     private String projectIme;
     private TextView projectImeView;
-    private JSONObject requestInfo;
+
 
 
 
@@ -58,7 +58,7 @@ public class TaskNewActivity extends AppCompatActivity {
     public void onStart(){
         super.onStart();
 
-        requestInfo = new JSONObject();
+        JSONObject requestInfo = new JSONObject();
         try {
             requestInfo.put("token", token);
             requestInfo.put("userID", userID);
@@ -135,18 +135,14 @@ public class TaskNewActivity extends AppCompatActivity {
 
             if (responseCode.equals("201")) {
 
-                TaskNewActivity.this.runOnUiThread(() -> {
-                    Toast.makeText(TaskNewActivity.this, "Naloga uspešno ustvarjena", Toast.LENGTH_SHORT).show();
-                });
+                TaskNewActivity.this.runOnUiThread(Toast.makeText(TaskNewActivity.this, "Naloga uspešno ustvarjena", Toast.LENGTH_SHORT)::show);
 
                 Intent intent = new Intent(TaskNewActivity.this, ProjectActivity_v2.class);
                 intent.putExtra("taskURL", taskURL);
                 Log.d("TaskNewActivity L136", taskURL);
                 startActivity(intent);
             } else {
-                TaskNewActivity.this.runOnUiThread(() -> {
-                    Toast.makeText(TaskNewActivity.this, "Ups, nekaj je šlo narobe \n Response code: " + responseCode, Toast.LENGTH_LONG).show();
-                });
+                TaskNewActivity.this.runOnUiThread(Toast.makeText(TaskNewActivity.this, "Ups, nekaj je šlo narobe \n Response code: " + responseCode, Toast.LENGTH_LONG)::show);
             }
         });
 
