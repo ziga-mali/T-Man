@@ -13,22 +13,28 @@ public class GetProjectName {
     }
 
     public interface GetProjectNameCallback {
-        void onResponse(String userNick);
+        void onResponse(JSONObject projectInfo);
         void onError(String error);
     }
 
-    public void getProjectName(int userID, JSONObject idenAuth, GetProjectNameCallback callback) {
-        String URL = context.getString(R.string.URL_base_storitve) + context.getString(R.string.projectsAPI) + userID;
+    public void getProjectName(String projectID, JSONObject idenAuth, GetProjectNameCallback callback) {
+        String URL = context.getString(R.string.URL_base_storitve) + context.getString(R.string.projectsAPI) + projectID;
         useAPI apiRequest = new useAPI("GET", URL, idenAuth, true);
         apiRequest.uporabi(output -> {
             try {
                 if (output.getResponseCode().startsWith("2")) { // Check for successful response code (2xx)
                     if (output.getJsonArray() != null) {
                         JSONObject projectNameJSON = output.getJsonArray().getJSONObject(0);
-                        String userNick = projectNameJSON.toString();
-                        callback.onResponse(userNick);
+                        String ime = projectNameJSON.getString("ime");
+                        String opis = projectNameJSON.getString("opis");
+
+                        JSONObject result = new JSONObject();
+                        result.put("ime", ime);
+                        result.put("opis", opis);
+
+                        callback.onResponse(result);
                     } else if (output.getResponseString() != null) {
-                        callback.onResponse(output.getResponseString());
+                        callback.onResponse(new JSONObject().put("response", output.getResponseString()));
                     } else {
                         callback.onError("Empty response from server");
                     }

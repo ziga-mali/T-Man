@@ -7,7 +7,7 @@
     android:orientation="vertical">
 
     <TextView
-        android:id="@+id/Username"
+        android:id="@+id/username"
         android:textSize="20pt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -54,36 +54,38 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/enter_project_name"
-                android:gravity="center_horizontal"
                 android:layout_marginBottom="2dp"
                 android:layout_marginEnd="2dp"
                 android:layout_marginStart="2dp"
                 android:layout_marginTop="2dp"
+                android:gravity="center_horizontal"
                 android:hint="Ime projekta"
-                android:inputType="text"/>
+                android:inputType="text"
+                android:minHeight="48dp" />
 
             <TextView
                 android:id="@+id/project_description"
-                android:textSize="12pt"
-                android:gravity="center_horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/project_name_input"
-                android:text="Opis projekta:"
+                android:gravity="center_horizontal"
                 android:inputType="text"
-                />
+                android:minHeight="48dp"
+                android:text="Opis projekta:"
+                android:textSize="12pt" />
 
             <EditText
                 android:id="@+id/project_description_input"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/project_description"
-                android:gravity="center_horizontal"
                 android:layout_marginBottom="2dp"
                 android:layout_marginEnd="2dp"
                 android:layout_marginStart="2dp"
                 android:layout_marginTop="2dp"
-                android:hint="Opis projekta" />
+                android:gravity="center_horizontal"
+                android:hint="Opis projekta"
+                android:minHeight="48dp" />
 
 <!--            <TextView-->
 <!--                android:id="@+id/project_access"-->

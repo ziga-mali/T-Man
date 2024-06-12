@@ -7,7 +7,7 @@
     android:orientation="vertical">
 
     <TextView
-        android:id="@+id/username"
+        android:id="@+id/projectName"
         android:textSize="20pt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -54,13 +54,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/enter_task_name"
-                android:gravity="center_horizontal"
                 android:layout_marginBottom="2dp"
                 android:layout_marginEnd="2dp"
                 android:layout_marginStart="2dp"
                 android:layout_marginTop="2dp"
+                android:gravity="center_horizontal"
                 android:hint="Ime naloge"
-                android:inputType="text"/>
+                android:inputType="text"
+                android:minHeight="48dp" />
 
             <TextView
                 android:id="@+id/task_description"
@@ -77,24 +78,25 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/task_description"
-                android:gravity="center_horizontal"
                 android:layout_marginBottom="2dp"
                 android:layout_marginEnd="2dp"
                 android:layout_marginStart="2dp"
                 android:layout_marginTop="2dp"
-                android:hint="Opis naloge"/>
+                android:gravity="center_horizontal"
+                android:hint="Opis naloge"
+                android:minHeight="48dp" />
 
 
             <TextView
                 android:id="@+id/task_finish_time"
-                android:textSize="12pt"
-                android:gravity="center_horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/task_description_input"
-                android:text="Končaj do:"
+                android:gravity="center_horizontal"
                 android:inputType="text"
-                />
+                android:minHeight="48dp"
+                android:text="Končaj do:"
+                android:textSize="12pt" />
             <TextView
                 android:id="@+id/task_finish_time_display"
                 android:layout_width="match_parent"

@@ -61,17 +61,16 @@ public class UserviewActivity extends AppCompatActivity {
 
         lv.setOnItemClickListener((adapterView, view, i, l) ->{
             try {
+
                 JSONObject project = projectsArray.getJSONObject(i);
-                String projectIme = project.getString("ime");
-                String projectOpis = project.getString("opis");
                 String projectID = project.getString("id");
 
+                prefs = getSharedPreferences("TMan", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = prefs.edit();
+                editor.putString("projectID", projectID);
+                editor.apply();
+
                 Intent intent = new Intent(UserviewActivity.this, ProjectActivity_v2.class);
-                intent.putExtra("projectID", projectID);
-                intent.putExtra("projectIme", projectIme);
-                intent.putExtra("projectOpis", projectOpis);
-                intent.putExtra("startingActivity", "UserviewActivity");
-                //intent.putExtra("username", username);
                 startActivity(intent);
 
 
@@ -142,7 +141,6 @@ public class UserviewActivity extends AppCompatActivity {
                 new String[]{"name", "description"},
                 new int[]{R.id.projectTask, R.id.projectTaskDescription}
         );
-
         lv.setAdapter(adapter);
 
     }

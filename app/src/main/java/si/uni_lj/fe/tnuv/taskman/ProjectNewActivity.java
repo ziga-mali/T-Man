@@ -39,26 +39,54 @@ public class ProjectNewActivity extends AppCompatActivity {
     private EditText ProjectNameInput;
     private EditText ProjectDescriptionInput;
     private EditText ProjectAccessInput;
+    private TextView UsernameField;
     String username;
     String userID;
     String token;
+    SharedPreferences prefs;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.project_new_activity);
 
+        UsernameField = findViewById(R.id.username);
         ProjectNameInput = findViewById(R.id.project_name_input);
         ProjectDescriptionInput = findViewById(R.id.project_description_input);
         // ProjectAccessInput = findViewById(R.id.project_access_input);
 
-        Intent intent = getIntent();
-        username = intent.getStringExtra("username");
 
-        SharedPreferences prefs = ProjectNewActivity.this.getSharedPreferences("TMan", Context.MODE_PRIVATE);
+        prefs = ProjectNewActivity.this.getSharedPreferences("TMan", Context.MODE_PRIVATE);
         userID = prefs.getString("userID", null);
         token = prefs.getString("token", null);
 
+    }
+
+    @Override
+    public void onStart(){
+        super.onStart();
+
+        GetUserNick getUserNick = new GetUserNick(this);
+        JSONObject requestGetUserInfo = new JSONObject();
+        try {
+            requestGetUserInfo.put("token", token);
+            requestGetUserInfo.put("userID", userID);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        getUserNick.getUserNick(userID, requestGetUserInfo, new GetUserNick.GetUserNickCallback() {
+            @Override
+            public void onResponse(String userInfo) {
+                Log.d("UserInfo", userInfo);
+                username = userInfo;
+                Log.d("Project L140 ","userNick: " + username);
+                UsernameField.setText(username);
+            }
+            @Override
+            public void onError(String error) {
+                Log.e("UserInfoError", "Error: " + error);}
+        });
     }
 
     public void startAddProject(View v) {
@@ -88,7 +116,15 @@ public class ProjectNewActivity extends AppCompatActivity {
         api.uporabi(output -> {
             String responseCode = output.getResponseCode();
             String projectURL = output.getResponseString();
-            Log.d("ProjectNewActivity L91", responseCode);
+            String projectID;
+            String prefix = "/projects/";
+            String suffix = "/tasks";
+            int startIndex = projectURL.indexOf(prefix) + prefix.length();
+            int endIndex = projectURL.indexOf(suffix);
+            projectID = projectURL.substring(startIndex, endIndex);
+            SharedPreferences.Editor editor = prefs.edit();
+            editor.putString("projectID", projectID);
+            editor.apply();
 
             if (responseCode.equals("201")) {
 
@@ -98,11 +134,6 @@ public class ProjectNewActivity extends AppCompatActivity {
 
                 Intent intent = new Intent(ProjectNewActivity.this, ProjectActivity_v2.class);
                 intent.putExtra("projectTasksURL", projectURL);
-                Log.d("ProjectNewActivity L100", projectURL);
-                intent.putExtra("startingActivity", "ProjectNewActivity");
-                intent.putExtra("username", username);
-                intent.putExtra("projectIme", projectName);
-                intent.putExtra("projectOpis", projectDescription);
                 startActivity(intent);
             } else {
                 ProjectNewActivity.this.runOnUiThread(() -> {

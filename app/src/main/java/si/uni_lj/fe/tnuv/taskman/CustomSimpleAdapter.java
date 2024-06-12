@@ -1,6 +1,7 @@
 package si.uni_lj.fe.tnuv.taskman;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.SimpleAdapter;
@@ -8,6 +9,7 @@ import android.widget.TextView;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 public class CustomSimpleAdapter extends SimpleAdapter {
 
@@ -26,11 +28,12 @@ public class CustomSimpleAdapter extends SimpleAdapter {
 
         Map<String, String> item = data.get(position);
         String koncano = item.get("koncano");
+        String type = item.get("type");
 
         TextView nameTextView = view.findViewById(R.id.projectTask);
         TextView descriptionTextView = view.findViewById(R.id.projectTaskDescription);
 
-        if ("1".equals(koncano)) {
+        if("1".equals(koncano)) {
             int greenColor = context.getResources().getColor(android.R.color.holo_green_light);
             nameTextView.setTextColor(greenColor);
             descriptionTextView.setTextColor(greenColor);
@@ -39,7 +42,6 @@ public class CustomSimpleAdapter extends SimpleAdapter {
             nameTextView.setTextColor(blueColor);
             descriptionTextView.setTextColor(blueColor);
         }
-
         return view;
     }
 }
