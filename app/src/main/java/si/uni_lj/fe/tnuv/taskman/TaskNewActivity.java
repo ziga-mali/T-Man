@@ -1,6 +1,5 @@
 package si.uni_lj.fe.tnuv.taskman;
 
-import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
@@ -30,11 +29,11 @@ public class TaskNewActivity extends AppCompatActivity {
     private String userID;
     private String projectID;
     private String projectIme;
-    private String projectOpis;
-    private String username;
+    private TextView projectImeView;
+    private JSONObject requestInfo;
 
 
-    @SuppressLint("MissingInflatedId")
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,19 +42,42 @@ public class TaskNewActivity extends AppCompatActivity {
         SharedPreferences prefs = TaskNewActivity.this.getSharedPreferences("TMan", Context.MODE_PRIVATE);
         userID = prefs.getString("userID", null);
         token = prefs.getString("token", null);
+        projectID = prefs.getString("projectID", null);
 
-        Intent intent = getIntent();
-        projectID = intent.getStringExtra("projectID");
-        projectIme = intent.getStringExtra("projectIme");
-        projectOpis = intent.getStringExtra("projectOpis");
-        username = intent.getStringExtra("username");
 
+        projectImeView = findViewById(R.id.projectName);
         taskNameInput = findViewById(R.id.task_name_input);
         taskDescriptionInput = findViewById(R.id.task_description_input);
         Button taskFinishTimeButton = findViewById(R.id.task_finish_time_input);
         calendar = Calendar.getInstance();
         taskFinishTimeButton.setOnClickListener(v -> showDateTimePickerDialog());
         dateTimeDisplay = findViewById(R.id.task_finish_time_display);
+    }
+
+    @Override
+    public void onStart(){
+        super.onStart();
+
+        requestInfo = new JSONObject();
+        try {
+            requestInfo.put("token", token);
+            requestInfo.put("userID", userID);
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        }
+
+        GetProjectInfo getProjectInfo = new GetProjectInfo(this);
+        getProjectInfo.getProjectInfo(projectID, requestInfo, new GetProjectInfo.GetProjectInfoCallback() {
+            @Override
+            public void onResponse(JSONObject projectInfo) throws JSONException {
+                Log.d("ProjectInfo", projectInfo.toString());
+                projectIme = projectInfo.getString("ime");
+                projectImeView.setText(projectIme);
+            }
+            @Override
+            public void onError(String error) {
+                Log.e("UserInfoError", "Error: " + error);}
+        });
     }
 
     private void showDateTimePickerDialog() {
@@ -120,11 +142,6 @@ public class TaskNewActivity extends AppCompatActivity {
                 Intent intent = new Intent(TaskNewActivity.this, ProjectActivity_v2.class);
                 intent.putExtra("taskURL", taskURL);
                 Log.d("TaskNewActivity L136", taskURL);
-                intent.putExtra("startingActivity", "TaskNewActivity");
-                intent.putExtra("username", username);
-                intent.putExtra("projectIme", projectIme);
-                intent.putExtra("projectOpis", projectOpis);
-                intent.putExtra("projectID", projectID);
                 startActivity(intent);
             } else {
                 TaskNewActivity.this.runOnUiThread(() -> {

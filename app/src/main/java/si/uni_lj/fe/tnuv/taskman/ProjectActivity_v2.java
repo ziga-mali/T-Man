@@ -43,43 +43,25 @@ public class ProjectActivity_v2 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.project_activity_v2);
 
+        SharedPreferences prefs = ProjectActivity_v2.this.getSharedPreferences("TMan", Context.MODE_PRIVATE);
+        projectID = prefs.getString("projectID", null);
         programTasks = new ArrayList<>();
         lv = findViewById(R.id.task_list);
         Intent startingActivity = getIntent();
-        String startActivity = startingActivity.getStringExtra("startingActivity");
-        //username = startingActivity.getStringExtra("username");
-        projectIme = startingActivity.getStringExtra("projectIme");
-        projectOpis = startingActivity.getStringExtra("projectOpis");
+        //projectIme = startingActivity.getStringExtra("projectIme");
+        //projectOpis = startingActivity.getStringExtra("projectOpis");
 
         UsernameField = findViewById(R.id.username);
         ProjectImeField = findViewById(R.id.project_name);
-        ProjectImeField.setText(projectIme);
+        //ProjectImeField.setText(projectIme);
         ProjectOpisField = findViewById(R.id.project_description);
-        ProjectOpisField.setText(projectOpis);
+        //ProjectOpisField.setText(projectOpis);
 
-        if (Objects.equals(startActivity, "UserviewActivity") || Objects.equals(startActivity, "TaskActivity") || Objects.equals(startActivity, "TaskNewActivity")) {
+        URL = getString(R.string.URL_base_storitve) + getString(R.string.projectsAPI) + projectID + getString(R.string.tasksAPI);
+        Log.d("ProjectAct L76", URL);
+        Log.d("ProjectAct L77", projectID);
 
-            projectID = startingActivity.getStringExtra("projectID");
-            URL = getString(R.string.URL_base_storitve) + getString(R.string.projectsAPI) + projectID + getString(R.string.tasksAPI);
-            Log.d("ProjectAct L76", URL);
-            Log.d("ProjectAct L77", projectID);
 
-        } else if (Objects.equals(startActivity, "ProjectNewActivity")) {
-
-            URL = startingActivity.getStringExtra("projectTasksURL");
-            String prefix = "/projects/";
-            String suffix = "/tasks";
-            int startIndex = URL.indexOf(prefix) + prefix.length();
-            int endIndex = URL.indexOf(suffix);
-            projectID = URL.substring(startIndex, endIndex);
-            Log.d("ProjectAct L87", URL);
-            Log.d("ProjectAct L88", projectID);
-
-        } else {
-            Log.d("ProjectAct L91", "Napaka pri URL");
-        }
-
-        SharedPreferences prefs = ProjectActivity_v2.this.getSharedPreferences("TMan", Context.MODE_PRIVATE);
         userID = prefs.getString("userID", null);
         token = prefs.getString("token", null);
         Log.d("ProjectAct L97", URL);
@@ -120,7 +102,7 @@ public class ProjectActivity_v2 extends AppCompatActivity {
                 Map<String, String> item = new HashMap<>();
                 item.put("name", task.getString("ime"));
                 item.put("description", task.getString("opis"));
-                item.put("koncano", task.getString("koncano")); // Add the "koncano" field to the map
+                item.put("koncano", task.getString("koncano"));
                 programTasks.add(item);
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -133,8 +115,6 @@ public class ProjectActivity_v2 extends AppCompatActivity {
     public void onStart() {
         super.onStart();
 
-        Log.d("Project L130", "Tukaj smo");
-
         GetUserNick getUserNick = new GetUserNick(this);
         getUserNick.getUserNick(userID, requestInfo, new GetUserNick.GetUserNickCallback() {
             @Override
@@ -143,6 +123,21 @@ public class ProjectActivity_v2 extends AppCompatActivity {
                 username = userInfo;
                 Log.d("Project L140 ","userNick: " + username);
                 UsernameField.setText(username);
+            }
+            @Override
+            public void onError(String error) {
+                Log.e("UserInfoError", "Error: " + error);}
+        });
+
+        GetProjectInfo getProjectInfo = new GetProjectInfo(this);
+        getProjectInfo.getProjectInfo(projectID, requestInfo, new GetProjectInfo.GetProjectInfoCallback() {
+            @Override
+            public void onResponse(JSONObject projectInfo) throws JSONException {
+                Log.d("ProjectInfo", projectInfo.toString());
+                projectIme = projectInfo.getString("ime");
+                projectOpis = projectInfo.getString("opis");
+                ProjectImeField.setText(projectIme);
+                ProjectOpisField.setText(projectOpis);
             }
             @Override
             public void onError(String error) {
@@ -173,7 +168,7 @@ public class ProjectActivity_v2 extends AppCompatActivity {
                 this,
                 programTasks,
                 R.layout.list_item_layout,
-                new String[]{"name", "description", "koncano"}, // Include "koncano" in the from array
+                new String[]{"name", "description", "koncano"},
                 new int[]{R.id.projectTask, R.id.projectTaskDescription}
         );
         lv.setAdapter(adapter);
@@ -191,9 +186,14 @@ public class ProjectActivity_v2 extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void removeProjectActivity(View v) {
+    public void removeProjectActivity(View v) throws JSONException {
         URL = getString(R.string.URL_base_storitve) + getString(R.string.projectsAPI) + projectID;
-        useAPI projectDelete = new useAPI("DELETE", URL, requestInfo, true);
+        try {
+            requestInfo.put("koncan",1);
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        }
+        useAPI projectDelete = new useAPI("PUT", URL, requestInfo, true);
         projectDelete.uporabi(output -> {
             Log.d("Project L192 API Resp", "Response code: " + output.getResponseCode());
             int responseCode = Integer.parseInt(output.getResponseCode());
@@ -203,7 +203,6 @@ public class ProjectActivity_v2 extends AppCompatActivity {
                 });
 
                 Intent intent = new Intent(ProjectActivity_v2.this, UserviewActivity.class);
-                intent.putExtra("username", username);
                 startActivity(intent);
             } else {
                 ProjectActivity_v2.this.runOnUiThread(() -> {

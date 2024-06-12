@@ -4,20 +4,20 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import android.content.Context;
 
-public class GetProjectName {
+public class GetProjectInfo {
 
     private final Context context;
 
-    public GetProjectName(Context context) {
+    public GetProjectInfo(Context context) {
         this.context = context;
     }
 
-    public interface GetProjectNameCallback {
-        void onResponse(JSONObject projectInfo);
+    public interface GetProjectInfoCallback {
+        void onResponse(JSONObject projectInfo) throws JSONException;
         void onError(String error);
     }
 
-    public void getProjectName(String projectID, JSONObject idenAuth, GetProjectNameCallback callback) {
+    public void getProjectInfo(String projectID, JSONObject idenAuth, GetProjectInfoCallback callback) {
         String URL = context.getString(R.string.URL_base_storitve) + context.getString(R.string.projectsAPI) + projectID;
         useAPI apiRequest = new useAPI("GET", URL, idenAuth, true);
         apiRequest.uporabi(output -> {

@@ -36,7 +36,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:orientation = "vertical">
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/task_description_heading"
@@ -44,8 +44,9 @@
                 android:gravity="center_horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Opis naloge:"
-                />
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="64dp"
+                android:text="Opis naloge:" />
 
             <TextView
                 android:id="@+id/task_description"
@@ -53,10 +54,10 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/task_description_heading"
                 android:gravity="center_horizontal"
-                android:layout_marginBottom="2dp"
-                android:layout_marginEnd="2dp"
-                android:layout_marginStart="2dp"
-                android:layout_marginTop="2dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
                 android:text="" />
 
             <TextView
@@ -66,8 +67,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/task_description"
-                android:text="Končaj do:"
-                />
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="32dp"
+            android:text="Končaj do:" />
 
             <TextView
                 android:id="@+id/task_finish_time"
@@ -75,12 +77,14 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/task_finish_time_heading"
                 android:gravity="center_horizontal"
-                android:layout_marginBottom="2dp"
-                android:layout_marginEnd="2dp"
-                android:layout_marginStart="2dp"
-                android:layout_marginTop="2dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="64dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
                 android:text="" />
         </RelativeLayout>
+
+
 
 
         <Button

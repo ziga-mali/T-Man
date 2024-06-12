@@ -65,7 +65,6 @@ public class UserviewActivity extends AppCompatActivity {
                 JSONObject project = projectsArray.getJSONObject(i);
                 String projectID = project.getString("id");
 
-                prefs = getSharedPreferences("TMan", Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = prefs.edit();
                 editor.putString("projectID", projectID);
                 editor.apply();

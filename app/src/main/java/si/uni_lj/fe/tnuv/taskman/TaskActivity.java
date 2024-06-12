@@ -48,6 +48,7 @@ public class TaskActivity extends AppCompatActivity {
     TextView NalogaIme;
     TextView OpisNaloge;
     TextView KoncajDo;
+    TextView ProjectIme;
     String username;
 
 
@@ -66,8 +67,7 @@ public class TaskActivity extends AppCompatActivity {
         username = intent.getStringExtra("username");
 
 
-        TextView ProjectIme = findViewById(R.id.project_name);
-        ProjectIme.setText(projectIme);
+        ProjectIme = findViewById(R.id.project_name);
         NalogaIme = findViewById(R.id.task_name);
         OpisNaloge = findViewById(R.id.task_description);
         KoncajDo = findViewById(R.id.task_finish_time);
@@ -93,6 +93,19 @@ public class TaskActivity extends AppCompatActivity {
     @Override
     public void onStart() {
         super.onStart();
+
+        GetProjectInfo getProjectInfo = new GetProjectInfo(this);
+        getProjectInfo.getProjectInfo(projectID, requestInfo, new GetProjectInfo.GetProjectInfoCallback() {
+            @Override
+            public void onResponse(JSONObject projectInfo) throws JSONException {
+                Log.d("ProjectInfo", projectInfo.toString());
+                projectIme = projectInfo.getString("ime");
+                ProjectIme.setText(projectIme);
+            }
+            @Override
+            public void onError(String error) {
+                Log.e("UserInfoError", "Error: " + error);}
+        });
 
         Log.d("TaskActivity L88", "Tukaj smo");
         useAPI apiTask = new useAPI("GET", URL, requestInfo, true);
