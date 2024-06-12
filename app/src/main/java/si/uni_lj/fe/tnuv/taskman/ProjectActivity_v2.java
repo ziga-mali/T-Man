@@ -53,13 +53,8 @@ public class ProjectActivity_v2 extends AppCompatActivity {
         ProjectOpisField = findViewById(R.id.project_description);
 
         URL = getString(R.string.URL_base_storitve) + getString(R.string.projectsAPI) + projectID + getString(R.string.tasksAPI);
-        Log.d("ProjectAct L76", URL);
-        Log.d("ProjectAct L77", projectID);
-
-
         userID = prefs.getString("userID", null);
         token = prefs.getString("token", null);
-        Log.d("ProjectAct L97", URL);
         tasksArray = new JSONArray();
         requestInfo = new JSONObject();
         try {
@@ -114,9 +109,7 @@ public class ProjectActivity_v2 extends AppCompatActivity {
         getUserNick.getUserNick(userID, requestInfo, new GetUserNick.GetUserNickCallback() {
             @Override
             public void onResponse(String userInfo) {
-                Log.d("UserInfo", userInfo);
                 username = userInfo;
-                Log.d("Project L140 ","userNick: " + username);
                 UsernameField.setText(username);
             }
             @Override
@@ -128,7 +121,6 @@ public class ProjectActivity_v2 extends AppCompatActivity {
         getProjectInfo.getProjectInfo(projectID, requestInfo, new GetProjectInfo.GetProjectInfoCallback() {
             @Override
             public void onResponse(JSONObject projectInfo) throws JSONException {
-                Log.d("ProjectInfo", projectInfo.toString());
                 projectIme = projectInfo.getString("ime");
                 projectOpis = projectInfo.getString("opis");
                 ProjectImeField.setText(projectIme);
@@ -139,19 +131,14 @@ public class ProjectActivity_v2 extends AppCompatActivity {
                 Log.e("UserInfoError", "Error: " + error);}
         });
 
-
-        Log.d("ProjectAct L145", "Tukaj smo");
         useAPI apiProject = new useAPI("GET", URL, requestInfo, true);
         apiProject.uporabi(output -> {
-            Log.d("Project L147 API Resp", "Response code: " + output.getResponseCode());
             int responseCode = Integer.parseInt(output.getResponseCode());
             if (responseCode == 200) {
                 tasksArray = output.getJsonArray();
                 ProjectActivity_v2.this.runOnUiThread(() -> {
-                    Log.d("ProjAct L153", "Tukaj smo");
                     populateListView();
                 });
-                Log.d("ProjtAct L155 Vseb spor", "Sporocilo: " + tasksArray);
             } else {
                 ProjectActivity_v2.this.runOnUiThread(Toast.makeText(ProjectActivity_v2.this, "Response code: " + output.getResponseCode(), Toast.LENGTH_LONG)::show);
             }
@@ -188,7 +175,6 @@ public class ProjectActivity_v2 extends AppCompatActivity {
         }
         useAPI projectDelete = new useAPI("PUT", URL, requestInfo, true);
         projectDelete.uporabi(output -> {
-            Log.d("Project L192 API Resp", "Response code: " + output.getResponseCode());
             int responseCode = Integer.parseInt(output.getResponseCode());
             if (responseCode == 204) {
                 ProjectActivity_v2.this.runOnUiThread(Toast.makeText(ProjectActivity_v2.this, "Projekt uspešno izbrisan", Toast.LENGTH_SHORT)::show);

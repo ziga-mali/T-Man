@@ -71,7 +71,6 @@ public class TaskNewActivity extends AppCompatActivity {
         getProjectInfo.getProjectInfo(projectID, requestInfo, new GetProjectInfo.GetProjectInfoCallback() {
             @Override
             public void onResponse(JSONObject projectInfo) throws JSONException {
-                Log.d("ProjectInfo", projectInfo.toString());
                 projectIme = projectInfo.getString("ime");
                 projectImeView.setText(projectIme);
             }
@@ -105,8 +104,6 @@ public class TaskNewActivity extends AppCompatActivity {
         datePickerDialog.show();
     }
     public void startAddTask(View v) {
-        Log.d("TaskNew L90", dateTime);
-
         String taskName = taskNameInput.getText().toString();
         String taskDescription = taskDescriptionInput.getText().toString();
 
@@ -132,7 +129,6 @@ public class TaskNewActivity extends AppCompatActivity {
         api.uporabi(output -> {
             String responseCode = output.getResponseCode();
             String taskURL = output.getResponseString();
-            Log.d("TaskNewActivity L132", responseCode);
 
             if (responseCode.equals("201")) {
 
@@ -140,7 +136,6 @@ public class TaskNewActivity extends AppCompatActivity {
 
                 Intent intent = new Intent(TaskNewActivity.this, ProjectActivity_v2.class);
                 intent.putExtra("taskURL", taskURL);
-                Log.d("TaskNewActivity L136", taskURL);
                 startActivity(intent);
             } else {
                 TaskNewActivity.this.runOnUiThread(Toast.makeText(TaskNewActivity.this, "Ups, nekaj je šlo narobe \n Response code: " + responseCode, Toast.LENGTH_LONG)::show);

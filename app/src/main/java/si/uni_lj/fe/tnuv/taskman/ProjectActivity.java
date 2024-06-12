@@ -10,13 +10,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;

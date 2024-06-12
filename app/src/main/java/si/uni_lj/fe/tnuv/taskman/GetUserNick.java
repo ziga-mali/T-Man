@@ -3,7 +3,6 @@ package si.uni_lj.fe.tnuv.taskman;
 import org.json.JSONException;
 import org.json.JSONObject;
 import android.content.Context;
-import android.util.Log;
 
 public class GetUserNick {
 
@@ -24,7 +23,6 @@ public class GetUserNick {
         apiRequest.uporabi(output -> {
             try {
                 if (output != null) {
-                    Log.d("Tag", output.getResponseString());
                     JSONObject userNickJSON = new JSONObject(output.getResponseString());
                     String userNick = userNickJSON.getString("vzdevek");
                     callback.onResponse(userNick);

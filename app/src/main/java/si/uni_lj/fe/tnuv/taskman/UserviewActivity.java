@@ -48,7 +48,6 @@ public class UserviewActivity extends AppCompatActivity {
         userID = prefs.getString("userID", null);
         token = prefs.getString("token", null);
         URL = getString(R.string.URL_base_storitve) + getString(R.string.userviewAPI) + userID;
-        Log.d("Userview L67", URL);
         projectsArray = new JSONArray();
         requestInfo = new JSONObject();
         try {
@@ -57,8 +56,6 @@ public class UserviewActivity extends AppCompatActivity {
         } catch (JSONException e) {
             throw new RuntimeException(e);
         }
-
-        Log.d("RequestInfo: ",requestInfo.toString());
 
         lv.setOnItemClickListener((adapterView, view, i, l) ->{
             try {
@@ -94,7 +91,7 @@ public class UserviewActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
-        adapter.notifyDataSetChanged(); // Notify the adapter that the data has changed
+        adapter.notifyDataSetChanged();
     }
 
     @Override
@@ -104,9 +101,7 @@ public class UserviewActivity extends AppCompatActivity {
         getUserNick.getUserNick(userID, requestInfo, new GetUserNick.GetUserNickCallback() {
             @Override
             public void onResponse(String userInfo) {
-                Log.d("UserInfo", userInfo);
                 username = userInfo;
-                Log.d("L121 ","userNick: " + username);
                 UsernameField.setText(username);
             }
             @Override
@@ -117,20 +112,15 @@ public class UserviewActivity extends AppCompatActivity {
         useAPI apiUserview = new useAPI("GET", URL, requestInfo, true);
 
         apiUserview.uporabi(output -> {
-            Log.d("Userview L123 API Resp", "Response code: " + output.getResponseCode());
             int responseCode = Integer.parseInt(output.getResponseCode());
             if(responseCode == 200){
                 projectsArray = output.getJsonArray();
-                UserviewActivity.this.runOnUiThread(() -> {
-                    Toast.makeText(UserviewActivity.this, "Nekaj smo dobili", Toast.LENGTH_LONG).show();
-                    populateListView();
+                UserviewActivity.this.runOnUiThread(() -> {populateListView();
                 });
-                Log.d("Userview L131 Vseb. spo", "Sporocilo: " + projectsArray);
             }else{
                 UserviewActivity.this.runOnUiThread(Toast.makeText(UserviewActivity.this, "Response code: " + output.getResponseCode(), Toast.LENGTH_LONG)::show);
             }
         });
-
 
         adapter = new SimpleAdapter(
                 this,
@@ -145,7 +135,6 @@ public class UserviewActivity extends AppCompatActivity {
 
     public void startProjectNewActivity(View v) {
         Intent intent = new Intent(UserviewActivity.this, ProjectNewActivity.class);
-        intent.putExtra("username", username);
         startActivity(intent);
     }
 

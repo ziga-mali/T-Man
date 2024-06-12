@@ -3,34 +3,17 @@ package si.uni_lj.fe.tnuv.taskman;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.SubMenu;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.ListView;
-import android.widget.SimpleAdapter;
-import android.widget.Toast;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
 
 
 
@@ -44,6 +27,7 @@ public class ProjectNewActivity extends AppCompatActivity {
     String userID;
     String token;
     SharedPreferences prefs;
+    JSONArray usersArray;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -89,8 +73,17 @@ public class ProjectNewActivity extends AppCompatActivity {
         });
 
         String usersURL = this.getString(R.string.URL_base_storitve) + this.getString(R.string.usersAPI);
-        useAPI api = new useAPI("POST", usersURL, requestGetInfo, true);
+        useAPI api = new useAPI("GET", usersURL, requestGetInfo, true);
 
+        api.uporabi(output -> {
+            String responseCode = output.getResponseCode();
+            usersArray = output.getJsonArray();
+            Log.d("Userview L131 Vseb. spo", "Sporocilo: " + usersArray);
+            if (responseCode.equals("200")) {
+            } else {
+                ProjectNewActivity.this.runOnUiThread(Toast.makeText(ProjectNewActivity.this, "Ups, nekaj je šlo narobe \n Response code: " + responseCode, Toast.LENGTH_SHORT)::show);
+            }
+        });
 
     }
 
@@ -134,17 +127,12 @@ public class ProjectNewActivity extends AppCompatActivity {
 
             if (responseCode.equals("201")) {
 
-                ProjectNewActivity.this.runOnUiThread(() -> {
-                    Toast.makeText(ProjectNewActivity.this, "Projekt uspešno ustvarjen", Toast.LENGTH_SHORT).show();
-                });
+                ProjectNewActivity.this.runOnUiThread(Toast.makeText(ProjectNewActivity.this, "Projekt uspešno ustvarjen", Toast.LENGTH_SHORT)::show);
 
                 Intent intent = new Intent(ProjectNewActivity.this, ProjectActivity_v2.class);
-                intent.putExtra("projectTasksURL", projectURL);
                 startActivity(intent);
             } else {
-                ProjectNewActivity.this.runOnUiThread(() -> {
-                    Toast.makeText(ProjectNewActivity.this, "Ups, nekaj je šlo narobe \n Response code: " + responseCode, Toast.LENGTH_LONG).show();
-                });
+                ProjectNewActivity.this.runOnUiThread(Toast.makeText(ProjectNewActivity.this, "Ups, nekaj je šlo narobe \n Response code: " + responseCode, Toast.LENGTH_LONG)::show);
             }
         });
 

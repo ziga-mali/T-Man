@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -52,7 +51,6 @@ public class LoginActivity extends AppCompatActivity {
 
         apiLogin.uporabi(output -> {
             int responseCode = Integer.parseInt(output.getResponseCode());
-            Log.d("Login Act L60 API Resp", "Responce code: " + output.getResponseCode());
             if (responseCode == 200) {
                 JSONArray jsonResponse = output.getJsonArray();
 

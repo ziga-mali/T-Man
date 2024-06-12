@@ -12,6 +12,7 @@ import android.widget.Toast;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -60,7 +61,6 @@ public class TaskActivity extends AppCompatActivity {
         token = prefs.getString("token", null);
 
         URL = getString(R.string.URL_base_storitve) + getString(R.string.projectsAPI) + projectID + getString(R.string.tasksAPI) + taskID;
-        Log.d("TaskActivity L58", URL);
 
         requestInfo = new JSONObject();
         try {
@@ -80,7 +80,6 @@ public class TaskActivity extends AppCompatActivity {
         getProjectInfo.getProjectInfo(projectID, requestInfo, new GetProjectInfo.GetProjectInfoCallback() {
             @Override
             public void onResponse(JSONObject projectInfo) throws JSONException {
-                Log.d("ProjectInfo", projectInfo.toString());
                 projectIme = projectInfo.getString("ime");
                 ProjectIme.setText(projectIme);
             }
@@ -88,8 +87,6 @@ public class TaskActivity extends AppCompatActivity {
             public void onError(String error) {
                 Log.e("UserInfoError", "Error: " + error);}
         });
-
-        Log.d("TaskActivity L88", "Tukaj smo");
         useAPI apiTask = new useAPI("GET", URL, requestInfo, true);
 
         apiTask.uporabi(output -> {
@@ -134,18 +131,7 @@ public class TaskActivity extends AppCompatActivity {
 
     public void finishTask(View v) throws JSONException {
         long currentTimeMillis = System.currentTimeMillis();
-        Date currentDate = new Date(currentTimeMillis);
-        @SuppressLint("SimpleDateFormat") SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        String formattedDate = dateFormat.format(currentDate);
-        Log.d("Task L133", formattedDate);
-
-        JSONObject requestInfoFinish = new JSONObject();
-        requestInfoFinish.put("token", token);
-        requestInfoFinish.put("userID", userID);
-        requestInfoFinish.put("koncano", 1);
-        requestInfoFinish.put("kon_cas", formattedDate);
-
-        useAPI apiTaskFinish = new useAPI("PUT", URL, requestInfoFinish, true);
+        useAPI apiTaskFinish = getUseAPI(currentTimeMillis);
 
         apiTaskFinish.uporabi(output -> {
             int responseCode = Integer.parseInt(output.getResponseCode());
@@ -162,6 +148,21 @@ public class TaskActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    @NonNull
+    private useAPI getUseAPI(long currentTimeMillis) throws JSONException {
+        Date currentDate = new Date(currentTimeMillis);
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String formattedDate = dateFormat.format(currentDate);
+
+        JSONObject requestInfoFinish = new JSONObject();
+        requestInfoFinish.put("token", token);
+        requestInfoFinish.put("userID", userID);
+        requestInfoFinish.put("koncano", 1);
+        requestInfoFinish.put("kon_cas", formattedDate);
+
+        return new useAPI("PUT", URL, requestInfoFinish, true);
     }
 
     public void deleteTask(View v) {
