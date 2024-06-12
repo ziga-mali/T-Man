@@ -67,15 +67,15 @@ public class ProjectNewActivity extends AppCompatActivity {
         super.onStart();
 
         GetUserNick getUserNick = new GetUserNick(this);
-        JSONObject requestGetUserInfo = new JSONObject();
+        JSONObject requestGetInfo = new JSONObject();
         try {
-            requestGetUserInfo.put("token", token);
-            requestGetUserInfo.put("userID", userID);
+            requestGetInfo.put("token", token);
+            requestGetInfo.put("userID", userID);
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
-        getUserNick.getUserNick(userID, requestGetUserInfo, new GetUserNick.GetUserNickCallback() {
+        getUserNick.getUserNick(userID, requestGetInfo, new GetUserNick.GetUserNickCallback() {
             @Override
             public void onResponse(String userInfo) {
                 Log.d("UserInfo", userInfo);
@@ -87,6 +87,11 @@ public class ProjectNewActivity extends AppCompatActivity {
             public void onError(String error) {
                 Log.e("UserInfoError", "Error: " + error);}
         });
+
+        String usersURL = this.getString(R.string.URL_base_storitve) + this.getString(R.string.usersAPI);
+        useAPI api = new useAPI("POST", usersURL, requestGetInfo, true);
+
+
     }
 
     public void startAddProject(View v) {
@@ -109,6 +114,7 @@ public class ProjectNewActivity extends AppCompatActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+
 
         String URL = this.getString(R.string.URL_base_storitve) + this.getString(R.string.projectsAPI);
         useAPI api = new useAPI("POST", URL, requestInfo, true);

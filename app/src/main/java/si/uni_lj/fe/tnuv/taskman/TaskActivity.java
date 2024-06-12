@@ -94,7 +94,6 @@ public class TaskActivity extends AppCompatActivity {
 
         apiTask.uporabi(output -> {
             int responseCode = Integer.parseInt(output.getResponseCode());
-            Log.d("Task L82 API Resp", "Response code: " + output.getResponseCode());
 
             if (responseCode == 200) {
                 String ime = "";
@@ -112,7 +111,7 @@ public class TaskActivity extends AppCompatActivity {
                         koncaniCas = jsonObject.optString("kon_cas");
                         koncano = jsonObject.optString("koncano");
                     }else{
-                        TaskActivity.this.runOnUiThread(Toast.makeText(TaskActivity.this, "Prišlo je do napake", Toast.LENGTH_LONG)::show);
+                        TaskActivity.this.runOnUiThread(Toast.makeText(TaskActivity.this, "Prišlo je do napake", Toast.LENGTH_SHORT)::show);
                     }
 
                 }
@@ -128,7 +127,7 @@ public class TaskActivity extends AppCompatActivity {
                 }
 
             } else {
-                TaskActivity.this.runOnUiThread(Toast.makeText(TaskActivity.this, "Prišlo je do napake", Toast.LENGTH_LONG)::show);
+                TaskActivity.this.runOnUiThread(Toast.makeText(TaskActivity.this, "Prišlo je do napake", Toast.LENGTH_SHORT)::show);
             }
         });
     }
@@ -145,9 +144,6 @@ public class TaskActivity extends AppCompatActivity {
         requestInfoFinish.put("userID", userID);
         requestInfoFinish.put("koncano", 1);
         requestInfoFinish.put("kon_cas", formattedDate);
-
-        String modifiedJsonStr = requestInfoFinish.toString();
-        Log.d("L148 RequestInfo", modifiedJsonStr);
 
         useAPI apiTaskFinish = new useAPI("PUT", URL, requestInfoFinish, true);
 
@@ -175,7 +171,7 @@ public class TaskActivity extends AppCompatActivity {
         apiTaskDelete.uporabi(output -> {
             int responseCode = Integer.parseInt(output.getResponseCode());
             if (responseCode == 204){
-                TaskActivity.this.runOnUiThread(Toast.makeText(TaskActivity.this, "Naloga je izbrisana", Toast.LENGTH_LONG)::show);
+                TaskActivity.this.runOnUiThread(Toast.makeText(TaskActivity.this, "Naloga je izbrisana", Toast.LENGTH_SHORT)::show);
 
                 Intent intent = new Intent(TaskActivity.this, ProjectActivity_v2.class);
                 intent.putExtra("username", username);
