@@ -13,6 +13,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 
+/** @noinspection ALL*/
 public class LoginActivity extends AppCompatActivity {
 
     private EditText Username;
