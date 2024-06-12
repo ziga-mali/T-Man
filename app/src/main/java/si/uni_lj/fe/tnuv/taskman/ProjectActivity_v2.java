@@ -18,6 +18,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/** @noinspection ALL*/
 public class ProjectActivity_v2 extends AppCompatActivity {
 
     private ListView lv;

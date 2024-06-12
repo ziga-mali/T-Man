@@ -19,6 +19,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/** @noinspection ALL*/
 public class UserviewActivity extends AppCompatActivity {
 
     private ListView lv;

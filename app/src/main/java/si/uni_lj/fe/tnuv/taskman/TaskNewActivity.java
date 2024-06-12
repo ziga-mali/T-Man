@@ -18,6 +18,7 @@ import org.json.JSONObject;
 import androidx.appcompat.app.AppCompatActivity;
 import java.util.Calendar;
 
+/** @noinspection ALL*/
 public class TaskNewActivity extends AppCompatActivity {
 
     private Calendar calendar;
