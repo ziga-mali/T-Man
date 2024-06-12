@@ -73,9 +73,7 @@ public class LoginActivity extends AppCompatActivity {
                     }
                 }
             } else {
-                LoginActivity.this.runOnUiThread(() -> {
-                    Toast.makeText(LoginActivity.this, "Napačno vnešeno ime ali geslo", Toast.LENGTH_LONG).show();
-                });
+                LoginActivity.this.runOnUiThread(Toast.makeText(LoginActivity.this, "Napačno vnešeno ime ali geslo", Toast.LENGTH_SHORT)::show);
             }
         });
     }

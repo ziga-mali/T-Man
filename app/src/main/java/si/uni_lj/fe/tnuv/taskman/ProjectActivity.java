@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+/** @noinspection ALL*/
 public class ProjectActivity extends AppCompatActivity {
 
     private ListView lv;

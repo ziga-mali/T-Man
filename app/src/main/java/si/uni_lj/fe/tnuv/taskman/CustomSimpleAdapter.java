@@ -10,8 +10,8 @@ import java.util.Map;
 
 public class CustomSimpleAdapter extends SimpleAdapter {
 
-    private List<? extends Map<String, String>> data;
-    private Context context;
+    private final List<? extends Map<String, String>> data;
+    private final Context context;
 
     public CustomSimpleAdapter(Context context, List<? extends Map<String, String>> data, int resource, String[] from, int[] to) {
         super(context, data, resource, from, to);
@@ -25,7 +25,6 @@ public class CustomSimpleAdapter extends SimpleAdapter {
 
         Map<String, String> item = data.get(position);
         String koncano = item.get("koncano");
-        String type = item.get("type");
 
         TextView nameTextView = view.findViewById(R.id.projectTask);
         TextView descriptionTextView = view.findViewById(R.id.projectTaskDescription);
