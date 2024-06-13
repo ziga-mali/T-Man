@@ -47,6 +47,7 @@ public class UserviewActivity extends AppCompatActivity {
         prefs = UserviewActivity.this.getSharedPreferences("TMan", Context.MODE_PRIVATE);
         userID = prefs.getString("userID", null);
         token = prefs.getString("token", null);
+
         URL = getString(R.string.URL_base_storitve) + getString(R.string.userviewAPI) + userID;
         projectsArray = new JSONArray();
         requestInfo = new JSONObject();
