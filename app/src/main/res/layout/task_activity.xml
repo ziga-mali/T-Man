@@ -14,7 +14,6 @@
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:layout_marginBottom="20dp"
-        android:text="Ime projekta"
         />
 
     <TextView
@@ -23,7 +22,6 @@
         android:gravity="center_horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Ime naloge"
         />
 
     <RelativeLayout
@@ -46,7 +44,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="64dp"
-                android:text="Opis naloge:" />
+                android:text="@string/opis_naloge" />
 
             <TextView
                 android:id="@+id/task_description"
@@ -69,7 +67,7 @@
                 android:layout_below="@id/task_description"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="32dp"
-            android:text="Končaj do:" />
+                android:text="@string/koncaj_do" />
 
             <TextView
                 android:id="@+id/task_finish_time"

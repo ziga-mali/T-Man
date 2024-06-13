@@ -13,7 +13,6 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.Objects;
-import android.util.Log;
 
 /** @noinspection ALL*/
 class useAPI {
@@ -58,7 +57,6 @@ class useAPI {
                     OutputStream os = connection.getOutputStream();
                     BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os, StandardCharsets.UTF_8));
                     writer.write(inputData.toString());
-                    Log.d("useAPI L60", inputData.toString());
                     writer.flush();
                     writer.close();
                     os.close();
@@ -67,10 +65,8 @@ class useAPI {
 
                 int responseCode = connection.getResponseCode();
                 connectionOutput.setResponseCode(String.valueOf(responseCode));
-                Log.d("UseAPI L69", String.valueOf(responseCode));
                 if (responseCode >= 200 && responseCode < 300) {
                     int contentLength = connection.getContentLength();
-                    Log.d("UseAPI L73 CONTENT_LEN", String.valueOf(contentLength));
                     if (contentLength > 0) {
                         BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
                         StringBuilder response = new StringBuilder();
@@ -84,15 +80,12 @@ class useAPI {
                             JSONArray jsonResponse = new JSONArray(response.toString());
                             connectionOutput.setJsonArray(jsonResponse);
                             connectionOutput.setResponseString(null);
-                            Log.d("UseAPI L97 JSN response", String.valueOf(jsonResponse));
                         } catch (JSONException e) {
-                            connectionOutput.setJsonArray(null); // Set JSON array to null
-                            Log.d("UseAPI L99 Str resp", response.toString());
+                            connectionOutput.setJsonArray(null);
                             connectionOutput.setResponseString(response.toString());
                             if (response.toString().startsWith("\"http")){
                                 String cleanedResponse = response.toString().replace("\\/","/").replace("\"","");
                                 connectionOutput.setResponseString(cleanedResponse);
-                                Log.d("UseAPI L103 Str URL res", cleanedResponse);
                             }
                         }
                     }
@@ -101,13 +94,11 @@ class useAPI {
                     }
                 }else{
                     if (callback != null) {
-                        Log.d("UseAPI L104", "Response code: " + connectionOutput.getResponseCode());
                         callback.onResponse(connectionOutput);
                     }
                 }
             } catch (IOException | JSONException e) {
                 e.printStackTrace();
-                Log.d("UseAPI L110", "Response code: " + connectionOutput.getResponseCode());
             }
         }).start();
         return connectionOutput;

@@ -23,7 +23,7 @@
         android:gravity="center_horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Nov projekt"
+        android:text="@string/nov_projekt"
         />
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -42,7 +42,7 @@
             android:layout_marginTop="2dp"
             android:gravity="center_horizontal"
             android:importantForAutofill="no"
-            android:text="Vpiši ime projekta:"
+            android:text="@string/vpisi_ime_projekta"
             android:textSize="12pt"
             tools:ignore="TextSizeCheck"
             app:layout_constraintTop_toTopOf="parent"
@@ -59,7 +59,7 @@
             android:layout_marginTop="2dp"
             android:autofillHints="no"
             android:gravity="center_horizontal"
-            android:hint="Ime projekta"
+            android:hint="@string/ime_projekta"
             android:inputType="text"
             android:minHeight="48dp"
             tools:ignore="VisualLintTextFieldSize"
@@ -73,7 +73,7 @@
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:minHeight="48dp"
-            android:text="Opis projekta:"
+            android:text="@string/opis_projekta"
             android:textSize="12pt"
             tools:ignore="TextSizeCheck,TextViewEdits"
             app:layout_constraintTop_toBottomOf="@id/project_name_input"
@@ -89,7 +89,7 @@
             android:layout_marginStart="2dp"
             android:layout_marginTop="2dp"
             android:gravity="center_horizontal"
-            android:hint="Opis projekta"
+            android:hint="@string/opis_projekta_hint"
             android:importantForAutofill="no"
             android:minHeight="48dp"
             android:inputType="text"
@@ -103,7 +103,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
-            android:text="Osebe z dostopom:"
+            android:text="@string/osebe_z_dostopom"
             android:textSize="12pt"
             tools:ignore="TextSizeCheck"
             app:layout_constraintTop_toBottomOf="@id/project_description_input"
@@ -141,7 +141,7 @@
                 android:layout_margin="2pt"
                 android:layout_weight="0.5"
                 android:onClick="startAddProject"
-                android:text="Shrani"
+                android:text="@string/shrani"
                 tools:ignore="ButtonStyle,VisualLintButtonSize" />
 
             <Button
@@ -151,7 +151,7 @@
                 android:layout_margin="2pt"
                 android:layout_weight="0.5"
                 android:onClick="clearProject"
-                android:text="Počisti"
+                android:text="@string/pocisti"
                 tools:ignore="ButtonStyle,VisualLintButtonSize" />
 
         </LinearLayout>

@@ -21,7 +21,7 @@
         android:gravity="center_horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Nova naloga"
+        android:text="@string/nova_naloga"
         />
 
     <RelativeLayout
@@ -46,7 +46,7 @@
                 android:layout_marginEnd="2dp"
                 android:layout_marginStart="2dp"
                 android:layout_marginTop="2dp"
-                android:text="Vpiši ime naloge:"
+                android:text="@string/vpisi_ime_naloge"
                 android:textSize="12pt" />
 
             <EditText
@@ -59,7 +59,7 @@
                 android:layout_marginStart="2dp"
                 android:layout_marginTop="2dp"
                 android:gravity="center_horizontal"
-                android:hint="Ime naloge"
+                android:hint="@string/ime_naloge"
                 android:inputType="text"
                 android:minHeight="48dp" />
 
@@ -70,7 +70,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/task_name_input"
-                android:text="Opis naloge:"
+                android:text="@string/opis_naloge"
                 />
 
             <EditText
@@ -83,8 +83,10 @@
                 android:layout_marginStart="2dp"
                 android:layout_marginTop="2dp"
                 android:gravity="center_horizontal"
-                android:hint="Opis naloge"
-                android:minHeight="48dp" />
+                android:hint="@string/opis_naloge_hint"
+                android:minHeight="48dp"
+                android:inputType="text"
+                />
 
 
             <TextView
@@ -93,9 +95,8 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/task_description_input"
                 android:gravity="center_horizontal"
-                android:inputType="text"
                 android:minHeight="48dp"
-                android:text="Končaj do:"
+                android:text="@string/koncaj_do"
                 android:textSize="12pt" />
             <TextView
                 android:id="@+id/task_finish_time_display"
@@ -118,7 +119,7 @@
                 android:layout_marginEnd="2dp"
                 android:layout_marginStart="2dp"
                 android:layout_marginTop="2dp"
-                android:text="Določi datum in uro"
+                android:text="@string/doloci_datum_in_uro"
                 />
         </RelativeLayout>
 
@@ -135,7 +136,7 @@
                 android:layout_margin="2pt"
                 android:layout_weight="0.33"
                 android:onClick="startAddTask"
-                android:text="Shrani"
+                android:text="@string/shrani"
                 />
 
             <Button
@@ -145,7 +146,7 @@
                 android:layout_margin="2pt"
                 android:layout_weight="0.33"
                 android:onClick="clearTask"
-                android:text="Počisti"
+                android:text="@string/pocisti"
                 />
 
         </LinearLayout>

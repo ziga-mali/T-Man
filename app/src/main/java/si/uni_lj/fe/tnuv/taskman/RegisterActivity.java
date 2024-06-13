@@ -34,7 +34,7 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
 
-    public void startAddUser(View v) throws JSONException {
+    public void startAddUser(View v) {
 
         String username = Username.getText().toString();
         String name = Name.getText().toString();
@@ -73,19 +73,14 @@ public class RegisterActivity extends AppCompatActivity {
         api.uporabi(output -> {
                 String responseCode = output.getResponseCode();
 
-                // Handle the response according to your needs
                 if (responseCode.equals("201")) {
 
-                    RegisterActivity.this.runOnUiThread(() -> {
-                        Toast.makeText(RegisterActivity.this, "Uspešna registracija", Toast.LENGTH_LONG).show();
-                    });
+                    RegisterActivity.this.runOnUiThread(() -> Toast.makeText(RegisterActivity.this, "Uspešna registracija", Toast.LENGTH_LONG).show());
 
                     Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
                     startActivity(intent);
                 } else {
-                    RegisterActivity.this.runOnUiThread(() -> {
-                        Toast.makeText(RegisterActivity.this, "Ups, nekaj je šlo narobe", Toast.LENGTH_LONG).show();
-                    });
+                    RegisterActivity.this.runOnUiThread(() -> Toast.makeText(RegisterActivity.this, "Ups, nekaj je šlo narobe", Toast.LENGTH_LONG).show());
                 }
         });
     }

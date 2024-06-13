@@ -11,5 +11,35 @@
     <string name="projectsAPI">projects/</string>
     <string name="tasksAPI">/tasks/</string>
     <string name="usersAPI">users/</string>
+    <string name="placeholder">Placeholder</string>
+    <string name="vzdevek">Vzdevek</string>
+    <string name="geslo">Geslo</string>
+    <string name="prijava">Prijava</string>
+    <string name="registracija">Registracija</string>
+    <string name="dodaj_nalogo">Dodaj nalogo</string>
+    <string name="izbrisi_projekt">Izbriši projekt</string>
+    <string name="nov_projekt">Nov projekt</string>
+    <string name="vpisi_ime_projekta">Vpiši ime projekta:</string>
+    <string name="ime_projekta">Ime projekta</string>
+    <string name="opis_projekta">Opis projekta:</string>
+    <string name="opis_projekta_hint">Opis projekta</string>
+    <string name="osebe_z_dostopom">Osebe z dostopom:</string>
+    <string name="shrani">Shrani</string>
+    <string name="pocisti">Počisti</string>
+    <string name="ime">Ime</string>
+    <string name="priimek">Priimek</string>
+    <string name="email">Email</string>
+    <string name="novo_geslo">Novo geslo</string>
+    <string name="potrdi_geslo">Potrdi geslo</string>
+    <string name="registriraj">Registriraj</string>
+    <string name="nazaj_na_prijavo">Nazaj na prijavo</string>
+    <string name="opis_naloge">Opis naloge:</string>
+    <string name="koncaj_do">Končaj do:</string>
+    <string name="nova_naloga">Nova naloga</string>
+    <string name="vpisi_ime_naloge">Vpiši ime naloge:</string>
+    <string name="ime_naloge">Ime naloge</string>
+    <string name="opis_naloge_hint">Opis naloge</string>
+    <string name="doloci_datum_in_uro">Določi datum in uro</string>
+    <string name="username">Username</string>
 
 </resources>

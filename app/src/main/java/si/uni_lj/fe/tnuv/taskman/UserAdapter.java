@@ -43,8 +43,8 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
     }
 
     public static class UserViewHolder extends RecyclerView.ViewHolder {
-        TextView username;
-        CheckBox checkBox;
+        final TextView username;
+        final CheckBox checkBox;
 
         public UserViewHolder(@NonNull View itemView) {
             super(itemView);
