@@ -113,6 +113,7 @@ public class ProjectNewActivity extends AppCompatActivity {
 
         if (projectName.isEmpty() || projectDescription.isEmpty()) {
             Toast.makeText(this, "Prosimo izpolnite vsa polja.", Toast.LENGTH_SHORT).show();
+            return;
         }
 
         for (User user : userList) {

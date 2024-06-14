@@ -109,6 +109,7 @@ public class TaskNewActivity extends AppCompatActivity {
 
         if (taskName.isEmpty() || taskDescription.isEmpty() || dateTime.isEmpty()) {
             Toast.makeText(this, "Prosimo izpolnite vsa polja.", Toast.LENGTH_SHORT).show();
+            return;
         }
 
         JSONObject requestInfo = new JSONObject();
@@ -131,17 +132,19 @@ public class TaskNewActivity extends AppCompatActivity {
             String taskURL = output.getResponseString();
 
             if (responseCode.equals("201")) {
-
-                TaskNewActivity.this.runOnUiThread(Toast.makeText(TaskNewActivity.this, "Naloga uspešno ustvarjena", Toast.LENGTH_SHORT)::show);
+                TaskNewActivity.this.runOnUiThread(() -> {
+                    Toast.makeText(TaskNewActivity.this, "Naloga uspešno ustvarjena", Toast.LENGTH_SHORT).show();
+                });
 
                 Intent intent = new Intent(TaskNewActivity.this, ProjectActivity_v2.class);
                 intent.putExtra("taskURL", taskURL);
                 startActivity(intent);
             } else {
-                TaskNewActivity.this.runOnUiThread(Toast.makeText(TaskNewActivity.this, "Ups, nekaj je šlo narobe \n Response code: " + responseCode, Toast.LENGTH_LONG)::show);
+                TaskNewActivity.this.runOnUiThread(() -> {
+                    Toast.makeText(TaskNewActivity.this, "Ups, nekaj je šlo narobe \n Response code: " + responseCode, Toast.LENGTH_SHORT).show();
+                });
             }
         });
-
     }
 
     public void clearTask(View v) {

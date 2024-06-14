@@ -159,10 +159,6 @@ public class ProjectActivity_v2 extends AppCompatActivity {
 
     public void startTaskNewActivity(View v) {
         Intent intent = new Intent(ProjectActivity_v2.this, TaskNewActivity.class);
-        intent.putExtra("projectID", projectID);
-        intent.putExtra("username", username);
-        intent.putExtra("projectIme", projectIme);
-        intent.putExtra("projectOpis", projectOpis);
         startActivity(intent);
     }
 
@@ -177,12 +173,18 @@ public class ProjectActivity_v2 extends AppCompatActivity {
         projectDelete.uporabi(output -> {
             int responseCode = Integer.parseInt(output.getResponseCode());
             if (responseCode == 204) {
-                ProjectActivity_v2.this.runOnUiThread(Toast.makeText(ProjectActivity_v2.this, "Projekt uspešno izbrisan", Toast.LENGTH_SHORT)::show);
+                String sporocilo = getString(R.string.projekt_uspesno_izbrisan);
+                ProjectActivity_v2.this.runOnUiThread(() -> {
+                    Toast.makeText(ProjectActivity_v2.this, sporocilo, Toast.LENGTH_SHORT).show();
+                });
 
                 Intent intent = new Intent(ProjectActivity_v2.this, UserviewActivity.class);
                 startActivity(intent);
             } else {
-                ProjectActivity_v2.this.runOnUiThread(Toast.makeText(ProjectActivity_v2.this, "Ups, nekaj je šlo narobe!" + output.getResponseCode(), Toast.LENGTH_SHORT)::show);
+                String sporocilo = getString(R.string.ups_nekaj_je_slo_narobe);
+                ProjectActivity_v2.this.runOnUiThread(()->{
+                    Toast.makeText(ProjectActivity_v2.this, sporocilo + output.getResponseCode(), Toast.LENGTH_SHORT).show();
+                });
             }
         });
     }
