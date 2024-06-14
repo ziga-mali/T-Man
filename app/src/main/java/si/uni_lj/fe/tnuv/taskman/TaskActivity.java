@@ -22,7 +22,6 @@ public class TaskActivity extends AppCompatActivity {
     String taskID;
     String projectID;
     String projectIme;
-    String projectOpis;
     String userID;
     String token;
     String URL;
@@ -31,7 +30,6 @@ public class TaskActivity extends AppCompatActivity {
     TextView OpisNaloge;
     TextView KoncajDo;
     TextView ProjectIme;
-    String username;
 
 
 
@@ -40,14 +38,6 @@ public class TaskActivity extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.task_activity);
-
-        Intent intent = getIntent();
-        taskID = intent.getStringExtra("taskID");
-        projectID = intent.getStringExtra("projectID");
-        projectIme = intent.getStringExtra("projectIme");
-        projectOpis = intent.getStringExtra("projectOpis");
-        username = intent.getStringExtra("username");
-
 
         ProjectIme = findViewById(R.id.project_name);
         NalogaIme = findViewById(R.id.task_name);
@@ -59,6 +49,7 @@ public class TaskActivity extends AppCompatActivity {
         SharedPreferences prefs = TaskActivity.this.getSharedPreferences("TMan", Context.MODE_PRIVATE);
         userID = prefs.getString("userID", null);
         token = prefs.getString("token", null);
+        projectID = prefs.getString("projectID", null);
 
         URL = getString(R.string.URL_base_storitve) + getString(R.string.projectsAPI) + projectID + getString(R.string.tasksAPI) + taskID;
 
@@ -71,7 +62,6 @@ public class TaskActivity extends AppCompatActivity {
         }
     }
 
-    @SuppressLint("SetTextI18n")
     @Override
     public void onStart() {
         super.onStart();
@@ -120,7 +110,8 @@ public class TaskActivity extends AppCompatActivity {
                 }
                 KoncajDo.setText(koncaniCas);
                 if(koncano.equals("1")){
-                    KoncajDo.setText("Že končano: " + koncaniCas);
+                    String koncanoText = getString(R.string.ze_koncano);
+                    KoncajDo.setText(koncanoText + koncaniCas);
                 }
 
             } else {
@@ -139,11 +130,6 @@ public class TaskActivity extends AppCompatActivity {
                 TaskActivity.this.runOnUiThread(Toast.makeText(TaskActivity.this, "Naloga je zaključena", Toast.LENGTH_LONG)::show);
 
                 Intent intent = new Intent(TaskActivity.this, ProjectActivity_v2.class);
-                intent.putExtra("username", username);
-                intent.putExtra("projectIme",projectIme);
-                intent.putExtra("projectID",projectID);
-                intent.putExtra("projectOpis", projectOpis);
-                intent.putExtra("startingActivity", "TaskActivity");
                 startActivity(intent);
 
             }
@@ -172,14 +158,13 @@ public class TaskActivity extends AppCompatActivity {
         apiTaskDelete.uporabi(output -> {
             int responseCode = Integer.parseInt(output.getResponseCode());
             if (responseCode == 204){
-                TaskActivity.this.runOnUiThread(Toast.makeText(TaskActivity.this, "Naloga je izbrisana", Toast.LENGTH_SHORT)::show);
+
+                String sporocilo = "Naloga je izbrisana";
+                TaskActivity.this.runOnUiThread(()->{
+                        Toast.makeText(TaskActivity.this, sporocilo, Toast.LENGTH_SHORT).show();
+                });
 
                 Intent intent = new Intent(TaskActivity.this, ProjectActivity_v2.class);
-                intent.putExtra("username", username);
-                intent.putExtra("projectIme",projectIme);
-                intent.putExtra("projectID",projectID);
-                intent.putExtra("projectOpis", projectOpis);
-                intent.putExtra("startingActivity", "TaskActivity");
                 startActivity(intent);
 
             }

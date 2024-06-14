@@ -44,5 +44,6 @@
     <string name="napaCno_vneseno_ime_ali_geslo">Napačno vnešeno ime ali geslo</string>
     <string name="ups_nekaj_je_slo_narobe">Ups, nekaj je šlo narobe!</string>
     <string name="projekt_uspesno_izbrisan">Projekt uspešno izbrisan</string>
+    <string name="ze_koncano">"Že končano: "</string>
 
 </resources>

@@ -137,7 +137,6 @@ public class TaskNewActivity extends AppCompatActivity {
                 });
 
                 Intent intent = new Intent(TaskNewActivity.this, ProjectActivity_v2.class);
-                intent.putExtra("taskURL", taskURL);
                 startActivity(intent);
             } else {
                 TaskNewActivity.this.runOnUiThread(() -> {
