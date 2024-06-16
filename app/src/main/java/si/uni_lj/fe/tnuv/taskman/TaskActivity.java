@@ -44,7 +44,8 @@ public class TaskActivity extends AppCompatActivity {
         OpisNaloge = findViewById(R.id.task_description);
         KoncajDo = findViewById(R.id.task_finish_time);
 
-
+        Intent intent = getIntent();
+        taskID = intent.getStringExtra("taskID");
 
         SharedPreferences prefs = TaskActivity.this.getSharedPreferences("TMan", Context.MODE_PRIVATE);
         userID = prefs.getString("userID", null);
@@ -115,7 +116,9 @@ public class TaskActivity extends AppCompatActivity {
                 }
 
             } else {
-                TaskActivity.this.runOnUiThread(Toast.makeText(TaskActivity.this, "Prišlo je do napake", Toast.LENGTH_SHORT)::show);
+                TaskActivity.this.runOnUiThread(() -> {
+                    Toast.makeText(TaskActivity.this, "Ups, nekaj je šlo narobe \n Response code: " + responseCode, Toast.LENGTH_SHORT).show();
+                });
             }
         });
     }

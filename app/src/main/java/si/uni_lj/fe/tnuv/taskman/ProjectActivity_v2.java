@@ -70,6 +70,7 @@ public class ProjectActivity_v2 extends AppCompatActivity {
                 String taskID = task.getString("id");
 
                 Intent intent = new Intent(ProjectActivity_v2.this, TaskActivity.class);
+                intent.putExtra("taskID", taskID);
                 startActivity(intent);
 
             } catch (JSONException e) {
